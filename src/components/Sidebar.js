@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaTh,
   FaRegChartBar,
@@ -13,11 +13,23 @@ import ProfileCard from "./ProfileCard";
 
 function Sidebar({ children }) {
   const [isOpen, setIsOpen] = useState(true);
+  const [showCard, setShowCard] = useState(false);
   const navigate = useNavigate();
   const toggle = () => setIsOpen(!isOpen);
   const routeToHome = () => {
     navigate("/");
   };
+
+  useEffect(() => {
+    const concernedElement = document.querySelector(".user-account");
+    document.addEventListener("mousedown", (event) => {
+      if (concernedElement.contains(event.target)) {
+        setShowCard(!showCard);
+      } else {
+        setShowCard(false);
+      }
+    });
+  }, [showCard, setShowCard]);
 
   const menuItems = [
     {
@@ -80,7 +92,7 @@ function Sidebar({ children }) {
           <div className="planner-title">Title Bar</div>
           <div className="profile-icon">
             <VscAccount className="user-account" />
-            <ProfileCard />
+            {showCard && <ProfileCard />}
           </div>
         </div>
         <div>{children}</div>
