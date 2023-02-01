@@ -7,8 +7,8 @@
 }
 
 .sidebar {
-  background: #000;
-  color: #fff;
+  background: var(--primary-black);
+  color: var(--primary-white);
   height: 100vh;
   width: 270px;
 }
@@ -45,7 +45,7 @@
 }
 
 .nav-link {
-  color: #fff;
+  color: var(--primary-white);
   display: flex;
   gap: 15px;
   padding: 10px 15px;
@@ -53,14 +53,14 @@
 }
 
 .nav-link:hover {
-  background: lightskyblue;
-  color: #000;
+  background: var(--bg-light-sky-blue);
+  color: var(--primary-black);
   transition: all 0.5s;
 }
 
 .active {
-  background: lightskyblue;
-  color: #000;
+  background: var(--bg-light-sky-blue);
+  color: var(--primary-black);
 }
 
 .nav-icon,
@@ -70,8 +70,8 @@
 
 .title-bar {
   align-items: center;
-  background: #000;
-  color: #fff;
+  background: var(--primary-black);
+  color: var(--primary-white);
   display: flex;
   justify-content: center;
   height: 50px;
