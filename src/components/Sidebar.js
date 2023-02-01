@@ -7,6 +7,7 @@ import {
   FaShoppingBag,
   FaBars,
 } from "react-icons/fa";
+import { VscAccount } from "react-icons/vsc";
 import { NavLink, useNavigate } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
 
@@ -77,7 +78,9 @@ function Sidebar({ children }) {
       <main className="child-page">
         <div className="title-bar">
           <div className="planner-title">Title Bar</div>
-          <div className="profile-icon">Profile</div>
+          <div className="profile-icon">
+            <VscAccount className="user-account" />
+          </div>
         </div>
         <ProfileCard />
         <div>{children}</div>
