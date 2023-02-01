@@ -3,7 +3,6 @@
 }
 
 .child-page {
-  padding: 20px;
   width: 100%;
 }
 
@@ -67,4 +66,28 @@
 .nav-icon,
 .nav-link-text {
   font-size: 20px;
+}
+
+.title-bar {
+  align-items: center;
+  background: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  width: 100%;
+}
+
+.planner-title {
+  display: flex;
+  flex: 3;
+  font-size: 25px;
+  justify-content: center;
+  padding: 10px;
+}
+
+.profile-icon {
+  display: flex;
+  flex: 1;
+  justify-content: center;
 }

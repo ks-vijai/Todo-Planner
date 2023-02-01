@@ -73,7 +73,13 @@ function Sidebar({ children }) {
           </NavLink>
         ))}
       </div>
-      <main className="child-page">{children}</main>
+      <main className="child-page">
+        <div className="title-bar">
+          <div className="planner-title">Title Bar</div>
+          <div className="profile-icon">Profile</div>
+        </div>
+        <div>{children}</div>
+      </main>
     </div>
   );
 }
