@@ -80,9 +80,9 @@ function Sidebar({ children }) {
           <div className="planner-title">Title Bar</div>
           <div className="profile-icon">
             <VscAccount className="user-account" />
+            <ProfileCard />
           </div>
         </div>
-        <ProfileCard />
         <div>{children}</div>
       </main>
     </div>

@@ -71,7 +71,6 @@
 .title-bar {
   align-items: center;
   background: var(--primary-black);
-  color: var(--primary-white);
   display: flex;
   justify-content: center;
   height: 50px;
@@ -79,6 +78,7 @@
 }
 
 .planner-title {
+  color: var(--primary-white);
   display: flex;
   flex: 3;
   font-size: 25px;
@@ -87,6 +87,7 @@
 }
 
 .profile-icon {
+  color: var(--primary-white);
   display: flex;
   flex: 1;
   justify-content: center;
