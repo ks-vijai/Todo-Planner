@@ -7,11 +7,15 @@ import {
   FaShoppingBag,
   FaBars,
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Sidebar({ children }) {
   const [isOpen, setIsOpen] = useState(true);
+  const navigate = useNavigate();
   const toggle = () => setIsOpen(!isOpen);
+  const routeToHome = () => {
+    navigate("/");
+  };
 
   const menuItems = [
     {
@@ -45,7 +49,12 @@ function Sidebar({ children }) {
     <div className="sidebar-container">
       <div className={isOpen ? "sidebar" : "sidebar sidebar-child"}>
         <div className="navigation-section">
-          <h1 className={isOpen ? "planner-logo" : "hide-elements"}>Logo</h1>
+          <h1
+            className={isOpen ? "planner-logo" : "hide-elements"}
+            onClick={routeToHome}
+          >
+            Logo
+          </h1>
           <div className={isOpen ? "hamburger" : "hamburger move-bars"}>
             <FaBars onClick={toggle} />
           </div>
