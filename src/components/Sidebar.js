@@ -8,6 +8,7 @@ import {
   FaBars,
 } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
+import ProfileCard from "./ProfileCard";
 
 function Sidebar({ children }) {
   const [isOpen, setIsOpen] = useState(true);
@@ -78,6 +79,7 @@ function Sidebar({ children }) {
           <div className="planner-title">Title Bar</div>
           <div className="profile-icon">Profile</div>
         </div>
+        <ProfileCard />
         <div>{children}</div>
       </main>
     </div>
