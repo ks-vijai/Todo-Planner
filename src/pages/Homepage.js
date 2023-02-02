@@ -7,6 +7,7 @@ import Fade from "@mui/material/Fade";
 import girlProfile from "../assets/girl.png";
 import OverallTasks from "../components/OverallTasks";
 import OverallProjects from "../components/OverallProjects";
+import PeopleCollaborator from "../components/PeopleCollaborator";
 
 function Homepage() {
   const taskDatas = [
@@ -163,13 +164,15 @@ function Homepage() {
           </div>
           <OverallTasks
             havingTasks={true}
-            taskDatas={taskDatas}
+            taskDatas={null}
             assignedTasks={true}
           />
         </div>
         <div className="overall-section">
-          <div></div>
-          <div></div>
+          <div className="heading-bar tasks-assigned-heading">
+            People Collaborators
+          </div>
+          <PeopleCollaborator />
         </div>
       </div>
     </div>

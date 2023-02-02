@@ -8,6 +8,7 @@ function EmptyTasks({ assignedTasks }) {
     <div className="overall-todo-tasks">
       <div className="task-name">
         <AiOutlineCheckCircle className="complete-icon" />
+        <span className=" null-tasks"></span>
       </div>
       <div></div>
       {assignedTasks && (

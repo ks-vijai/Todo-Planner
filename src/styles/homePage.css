@@ -221,6 +221,39 @@
   padding: 10px;
 }
 
+.null-tasks {
+  background-color: var(--bg-light-grey-title);
+  border-radius: 20px;
+  margin-left: 20px;
+  width: 17em;
+}
+
+.people-collaborators {
+  align-items: center;
+  border: 1px dotted var(--bg-general-grey);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  height: 17em;
+  justify-content: center;
+  margin: 2em;
+  width: 15em;
+}
+
+.people-quotes {
+  font-size: 15px;
+  text-align: center;
+}
+
+.invitation-button {
+  background-color: var(--bg-light-grey-title);
+  border: 1px dotted var(--primary-black);
+  border-radius: 20px;
+  cursor: pointer;
+  margin: 20px;
+  padding: 3px 7px;
+}
+
 .overall-todo-tasks:hover,
 .projects-section:hover {
   background-color: var(--bg-light-grey-title);
