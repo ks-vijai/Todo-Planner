@@ -1,8 +1,10 @@
 import React from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { IoPeopleSharp } from "react-icons/io5";
+import { AiOutlinePlus } from "react-icons/ai";
 import girlProfile from "../assets/girl.png";
 import OverallTasks from "../components/OverallTasks";
+import OverallProjects from "../components/OverallProjects";
 
 function Homepage() {
   const changeClassifier = (event) => {
@@ -64,11 +66,23 @@ function Homepage() {
               </div>
             </div>
           </div>
-          <OverallTasks havingTasks={false} />
+          <OverallTasks havingTasks={true} />
         </div>
         <div className="overall-section">
-          <div></div>
-          <div></div>
+          <div className="heading-bar projects-heading">Projects</div>
+          <div className="projects-list">
+            <div className="projects-section">
+              <div className="add-project-icon">
+                <AiOutlinePlus />
+              </div>
+              <div className="project-text">Create Project</div>
+            </div>
+            <OverallProjects />
+            <OverallProjects />
+            <OverallProjects />
+            <OverallProjects />
+            <OverallProjects />
+          </div>
         </div>
       </div>
       <div className="overall-task-dashboard">

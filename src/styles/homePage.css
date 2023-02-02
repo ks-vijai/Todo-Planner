@@ -142,7 +142,59 @@
   width: 60%;
 }
 
-.overall-todo-tasks:hover {
+.projects-heading {
+  padding: 20px;
+}
+
+.add-project-icon {
+  border: 1px dotted var(--bg-general-grey);
+  border-radius: 10px;
+  padding: 10px;
+  width: fit-content;
+}
+
+.projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.project-asset {
+  background-color: var(--bg-light-violet-text);
+  border: 1px dotted var(--bg-general-grey);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.projects-section {
+  align-items: center;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin: 0 20px 20px 20px;
+  padding: 10px;
+  width: fit-content;
+}
+
+.project-name {
+  color: var(--bg-general-violet);
+}
+
+.project-icon {
+  color: var(--bg-general-violet);
+}
+
+.project-text {
+  padding-left: 10px;
+}
+
+.team-name {
+  font-size: 12px;
+}
+
+.overall-todo-tasks:hover,
+.projects-section:hover {
   background-color: var(--bg-light-grey-title);
 }
 
