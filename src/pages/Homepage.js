@@ -2,6 +2,8 @@ import React from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { IoPeopleSharp } from "react-icons/io5";
 import { AiOutlinePlus } from "react-icons/ai";
+import Tooltip from "@mui/material/Tooltip";
+import Fade from "@mui/material/Fade";
 import girlProfile from "../assets/girl.png";
 import OverallTasks from "../components/OverallTasks";
 import OverallProjects from "../components/OverallProjects";
@@ -24,11 +26,27 @@ function Homepage() {
           <div>My Tasks</div>
           <div className="task-progress-list">
             <FcCheckmark className="progress-details" />
-            <span className="progress-details"> 0</span> tasks completed
+            <Tooltip
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+              title="Number of Tasks Completed"
+            >
+              <button className="remove-button">
+                <span className="progress-details"> 0</span> tasks completed
+              </button>
+            </Tooltip>
           </div>
           <div className="task-progress-list">
             <IoPeopleSharp className="progress-details" />
-            <span className="progress-details"> 0</span> collaborators
+            <Tooltip
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+              title="Total Number of Collaborators"
+            >
+              <button className="remove-button">
+                <span className="progress-details"> 0</span> collaborators
+              </button>
+            </Tooltip>
           </div>
         </div>
       </div>

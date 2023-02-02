@@ -166,6 +166,12 @@
   padding: 10px;
 }
 
+.remove-button {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
 .projects-section {
   align-items: center;
   border-radius: 20px;
