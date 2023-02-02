@@ -24,13 +24,15 @@ function EmptyTasks({ assignedTasks }) {
   );
 }
 
-function OverallTasks({ havingTasks, taskDatas, assignedTasks }) {
+function OverallTasks({ havingTasks, taskDatas, assignedTasks, taskStatus }) {
   return (
     <>
       {havingTasks ? (
         <div className="upcoming-task-section">
           {taskDatas && (
-            <div className="upcoming-heading">List of Added Upcoming Tasks</div>
+            <div className="upcoming-heading">
+              List of Added {taskStatus} Tasks
+            </div>
           )}
           {taskDatas ? (
             taskDatas.map((taskDetail) => {

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { IoPeopleSharp } from "react-icons/io5";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -10,6 +10,8 @@ import OverallProjects from "../components/OverallProjects";
 import PeopleCollaborator from "../components/PeopleCollaborator";
 
 function Homepage() {
+  const [taskStatus, setTaskStatus] = useState("upcoming");
+  const [assignedTaskStatus, setAssignedTaskStatus] = useState("upcoming");
   const taskDatas = [
     {
       id: 1,
@@ -43,12 +45,23 @@ function Homepage() {
     },
   ];
 
-  const changeClassifier = (event) => {
+  const changeClassifier = (taskStatus, taskSection, event) => {
     const classifierButtons = document.querySelectorAll(".classifier-buttons");
     classifierButtons.forEach((button) => {
       button.classList.remove("active-class");
     });
     event.target.classList.toggle("active-class");
+    switch (taskSection) {
+      case "MyTasks":
+        console.log();
+        setTaskStatus(taskStatus);
+        break;
+      case "AssignedTasks":
+        setAssignedTaskStatus(taskStatus);
+        break;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -99,26 +112,36 @@ function Homepage() {
               <div className="task-classifier">
                 <div
                   className="classifier-buttons active-class"
-                  onClick={(event) => changeClassifier(event)}
+                  onClick={(event) =>
+                    changeClassifier("upcoming", "MyTasks", event)
+                  }
                 >
                   Upcoming
                 </div>
                 <div
                   className="classifier-buttons"
-                  onClick={(event) => changeClassifier(event)}
+                  onClick={(event) =>
+                    changeClassifier("overdue", "MyTasks", event)
+                  }
                 >
                   Overdue
                 </div>
                 <div
                   className="classifier-buttons"
-                  onClick={(event) => changeClassifier(event)}
+                  onClick={(event) =>
+                    changeClassifier("completed", "MyTasks", event)
+                  }
                 >
                   Completed
                 </div>
               </div>
             </div>
           </div>
-          <OverallTasks havingTasks={true} taskDatas={taskDatas} />
+          <OverallTasks
+            havingTasks={true}
+            taskDatas={taskDatas}
+            taskStatus={taskStatus}
+          />
         </div>
         <div className="overall-section">
           <div className="heading-bar projects-heading">Projects</div>
@@ -145,26 +168,33 @@ function Homepage() {
           <div className="task-classifier tasks-assigned">
             <div
               className="classifier-buttons active-class"
-              onClick={(event) => changeClassifier(event)}
+              onClick={(event) =>
+                changeClassifier("upcoming", "AssignedTasks", event)
+              }
             >
               Upcoming
             </div>
             <div
               className="classifier-buttons"
-              onClick={(event) => changeClassifier(event)}
+              onClick={(event) =>
+                changeClassifier("overdue", "AssignedTasks", event)
+              }
             >
               Overdue
             </div>
             <div
               className="classifier-buttons"
-              onClick={(event) => changeClassifier(event)}
+              onClick={(event) =>
+                changeClassifier("completed", "AssignedTasks", event)
+              }
             >
               Completed
             </div>
           </div>
           <OverallTasks
             havingTasks={true}
-            taskDatas={null}
+            taskDatas={taskDatas}
+            taskStatus={assignedTaskStatus}
             assignedTasks={true}
           />
         </div>
