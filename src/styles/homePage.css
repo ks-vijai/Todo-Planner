@@ -41,7 +41,7 @@
   box-shadow: 0 0 0.3rem var(--bg-box-shadow);
   height: 25em;
   margin: 20px;
-  width: 46%;
+  width: 37em;
 }
 
 .girl-profile-icon {
@@ -107,6 +107,39 @@
 
 .active-class {
   border-bottom: 5px solid var(--bg-general-grey);
+}
+
+.check-circle {
+  color: var(--bg-dark-green);
+  font-size: 50px;
+}
+
+.empty-tasks-section {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 60%;
+}
+
+.empty-tasks {
+  align-items: center;
+  background-color: var(--bg-light-grey-title);
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+}
+
+.dash-line {
+  background-color: var(--primary-black);
+  height: 2px;
+  width: 10em;
+}
+
+.empty-container-message {
+  text-align: center;
+  width: 60%;
 }
 
 .overall-todo-tasks:hover {

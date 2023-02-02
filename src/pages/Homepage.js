@@ -1,11 +1,11 @@
 import React from "react";
 import { FcCheckmark } from "react-icons/fc";
 import { IoPeopleSharp } from "react-icons/io5";
-import { AiOutlineCheckCircle } from "react-icons/ai";
 import girlProfile from "../assets/girl.png";
+import OverallTasks from "../components/OverallTasks";
 
 function Homepage() {
-  const changeClassifier = (taskClassifier, event) => {
+  const changeClassifier = (event) => {
     const classifierButtons = document.querySelectorAll(".classifier-buttons");
     classifierButtons.forEach((button) => {
       button.classList.remove("active-class");
@@ -45,70 +45,26 @@ function Homepage() {
               <div className="task-classifier">
                 <div
                   className="classifier-buttons"
-                  onClick={(event) => changeClassifier("upcoming", event)}
+                  onClick={(event) => changeClassifier(event)}
                 >
                   Upcoming
                 </div>
                 <div
                   className="classifier-buttons"
-                  onClick={(event) => changeClassifier("overdue", event)}
+                  onClick={(event) => changeClassifier(event)}
                 >
                   Overdue
                 </div>
                 <div
                   className="classifier-buttons"
-                  onClick={(event) => changeClassifier("completed", event)}
+                  onClick={(event) => changeClassifier(event)}
                 >
                   Completed
                 </div>
               </div>
             </div>
           </div>
-          <div className="upcoming-task-section">
-            <div className="upcoming-heading">List of Added Upcoming Tasks</div>
-            <div className="overall-todo-tasks">
-              <div className="task-name">
-                <AiOutlineCheckCircle className="complete-icon" /> Draft Project
-                Proposal
-              </div>
-              <div>February 5</div>
-            </div>
-            <div className="overall-todo-tasks">
-              <div className="task-name">
-                <AiOutlineCheckCircle className="complete-icon" /> Draft Project
-                Proposal
-              </div>
-              <div>February 5</div>
-            </div>
-            <div className="overall-todo-tasks">
-              <div className="task-name">
-                <AiOutlineCheckCircle className="complete-icon" /> Draft Project
-                Proposal
-              </div>
-              <div>February 5</div>
-            </div>
-            <div className="overall-todo-tasks">
-              <div className="task-name">
-                <AiOutlineCheckCircle className="complete-icon" /> Draft Project
-                Proposal
-              </div>
-              <div>February 5</div>
-            </div>
-            <div className="overall-todo-tasks">
-              <div className="task-name">
-                <AiOutlineCheckCircle className="complete-icon" /> Draft Project
-                Proposal
-              </div>
-              <div>February 5</div>
-            </div>
-            <div className="overall-todo-tasks">
-              <div className="task-name">
-                <AiOutlineCheckCircle className="complete-icon" /> Draft Project
-                Proposal
-              </div>
-              <div>February 5</div>
-            </div>
-          </div>
+          <OverallTasks havingTasks={false} />
         </div>
         <div className="overall-section">
           <div></div>
