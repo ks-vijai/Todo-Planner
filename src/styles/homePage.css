@@ -85,7 +85,10 @@
 }
 
 .task-name {
+  align-self: flex-start;
+  display: flex;
   text-align: center;
+  width: 17em;
 }
 
 .upcoming-task-section {
@@ -197,6 +200,25 @@
 
 .team-name {
   font-size: 12px;
+}
+
+.tasks-assigned {
+  padding: 0 0 20px 20px;
+  border-bottom: 1px solid var(--bg-general-grey);
+}
+
+.tasks-assigned-heading {
+  padding: 20px 20px 5px 20px;
+}
+
+.assigner-profile {
+  height: 20px;
+  width: 30px;
+}
+
+.assigned-empty-task {
+  margin: 0 auto;
+  padding: 10px;
 }
 
 .overall-todo-tasks:hover,

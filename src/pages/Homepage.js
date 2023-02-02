@@ -9,6 +9,39 @@ import OverallTasks from "../components/OverallTasks";
 import OverallProjects from "../components/OverallProjects";
 
 function Homepage() {
+  const taskDatas = [
+    {
+      id: 1,
+      title: "Draft Project Proposal",
+      date: "February 5",
+    },
+    {
+      id: 2,
+      title: "Todo Page Compramise",
+      date: "February 6",
+    },
+    {
+      id: 3,
+      title: "Daily Event Analyser",
+      date: "February 7",
+    },
+    {
+      id: 4,
+      title: "Combo Data Compact Use",
+      date: "March 11",
+    },
+    {
+      id: 5,
+      title: "Data Tasks",
+      date: "March 21",
+    },
+    {
+      id: 6,
+      title: "Event Co-Ordination",
+      date: "April 1",
+    },
+  ];
+
   const changeClassifier = (event) => {
     const classifierButtons = document.querySelectorAll(".classifier-buttons");
     classifierButtons.forEach((button) => {
@@ -64,7 +97,7 @@ function Homepage() {
               <div className="heading-bar">My Priorities</div>
               <div className="task-classifier">
                 <div
-                  className="classifier-buttons"
+                  className="classifier-buttons active-class"
                   onClick={(event) => changeClassifier(event)}
                 >
                   Upcoming
@@ -84,7 +117,7 @@ function Homepage() {
               </div>
             </div>
           </div>
-          <OverallTasks havingTasks={true} />
+          <OverallTasks havingTasks={true} taskDatas={taskDatas} />
         </div>
         <div className="overall-section">
           <div className="heading-bar projects-heading">Projects</div>
@@ -105,8 +138,34 @@ function Homepage() {
       </div>
       <div className="overall-task-dashboard">
         <div className="task-section overall-section">
-          <div></div>
-          <div></div>
+          <div className="heading-bar tasks-assigned-heading">
+            Tasks I've assigned
+          </div>
+          <div className="task-classifier tasks-assigned">
+            <div
+              className="classifier-buttons active-class"
+              onClick={(event) => changeClassifier(event)}
+            >
+              Upcoming
+            </div>
+            <div
+              className="classifier-buttons"
+              onClick={(event) => changeClassifier(event)}
+            >
+              Overdue
+            </div>
+            <div
+              className="classifier-buttons"
+              onClick={(event) => changeClassifier(event)}
+            >
+              Completed
+            </div>
+          </div>
+          <OverallTasks
+            havingTasks={true}
+            taskDatas={taskDatas}
+            assignedTasks={true}
+          />
         </div>
         <div className="overall-section">
           <div></div>
