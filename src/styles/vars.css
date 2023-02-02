@@ -5,15 +5,16 @@
   --bg-dark-blue: #0000ff;
   --bg-light-blue: #add8e6;
   --bg-light-sky-blue: #87cefa;
+  --bg-dark-grey: #484848;
+  --bg-general-grey: #808080;
   --bg-light-grey-title: #e8e8e8;
+  --bg-dark-grey-icon: #a9a9a9;
   --bg-box-shadow: rgba(0, 0, 0, 0.34);
 
   --bg-grey-tile: #2e2e2e;
   --bg-dark-grey-tile: #181818;
   --bg-input-box-error: #4c2d2d;
   --bg-selection-blue: #1e90ff;
-
-  --bg-grey-box-shadow: #484848;
 
   --bright-red-border: #c10b00;
   --light-blue-border: #00c0f1;

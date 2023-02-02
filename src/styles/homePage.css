@@ -29,3 +29,98 @@
 .progress-details {
   font-size: 20px;
 }
+
+.overall-task-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.overall-section {
+  border: 1px solid transparent;
+  border-radius: 20px;
+  box-shadow: 0 0 0.3rem var(--bg-box-shadow);
+  height: 25em;
+  margin: 20px;
+  width: 46%;
+}
+
+.girl-profile-icon {
+  border: 1px dashed var(--primary-black);
+  border-radius: 50%;
+  height: 50px;
+  margin: 1.5em;
+  width: 50px;
+}
+
+.task-classification-container {
+  align-items: center;
+  border-bottom: 1px solid var(--bg-general-grey);
+  display: flex;
+}
+
+.task-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-classifier {
+  align-items: center;
+  color: var(--bg-dark-grey);
+  display: flex;
+  gap: 1.5em;
+  margin-top: 5px;
+}
+
+.heading-bar {
+  font-size: 150%;
+}
+
+.overall-todo-tasks {
+  align-items: center;
+  border-top: 2px solid var(--bg-light-grey-title);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5em 0.5em 0.2em 0.5em;
+}
+
+.task-name {
+  text-align: center;
+}
+
+.upcoming-task-section {
+  padding: 0.2em 3em;
+}
+
+.upcoming-heading {
+  padding: 5px;
+}
+
+.complete-icon {
+  color: var(--bg-dark-grey-icon);
+}
+
+.classifier-buttons {
+  border-bottom: 5px solid transparent;
+  cursor: pointer;
+}
+
+.active-class {
+  border-bottom: 5px solid var(--bg-general-grey);
+}
+
+.overall-todo-tasks:hover {
+  background-color: var(--bg-light-grey-title);
+}
+
+.overall-section:hover {
+  border: 1px solid var(--primary-black);
+}
+
+.complete-icon:hover {
+  color: var(--primary-black);
+}
+
+.classifier-buttons:hover {
+  border-bottom: 5px solid var(--bg-general-grey);
+}
