@@ -184,11 +184,11 @@
 }
 
 .project-name {
-  color: var(--bg-general-violet);
+  color: var(--bg-dark-blue);
 }
 
 .project-icon {
-  color: var(--bg-general-violet);
+  color: var(--bg-dark-blue);
 }
 
 .project-text {
