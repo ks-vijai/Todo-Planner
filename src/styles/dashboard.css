@@ -10,6 +10,8 @@
   background: var(--primary-black);
   color: var(--primary-white);
   height: 100vh;
+  position: sticky;
+  top: 0;
   width: 270px;
 }
 
@@ -74,6 +76,8 @@
   display: flex;
   justify-content: center;
   height: 50px;
+  position: sticky;
+  top: 0;
   width: 100%;
 }
 
