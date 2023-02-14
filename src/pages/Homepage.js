@@ -8,6 +8,7 @@ import girlProfile from "../assets/girl.png";
 import OverallTasks from "../components/OverallTasks";
 import OverallProjects from "../components/OverallProjects";
 import PeopleCollaborator from "../components/PeopleCollaborator";
+import { motion } from "framer-motion";
 
 function Homepage() {
   const [taskStatus, setTaskStatus] = useState("upcoming");
@@ -65,7 +66,7 @@ function Homepage() {
   };
 
   return (
-    <div>
+    <div className="home-page">
       <div className="overall-board">
         <div className="date-day">Wednesday, February 1</div>
         <div className="greeting-message">Good Evening, Vijai</div>
@@ -100,13 +101,22 @@ function Homepage() {
       <div className="overall-task-dashboard">
         <div className="task-section overall-section">
           <div className="task-classification-container">
-            <div>
+            <motion.div
+              animate={{ scale: 1, rotate: 360 }}
+              initial={{ scale: 0 }}
+              transition={{
+                type: "spring",
+                stiffness: 260,
+                delay: 1,
+                damping: 20,
+              }}
+            >
               <img
                 src={girlProfile}
                 alt="Profile"
                 className="girl-profile-icon"
               />
-            </div>
+            </motion.div>
             <div className="task-options">
               <div className="heading-bar">My Priorities</div>
               <div className="task-classifier">
