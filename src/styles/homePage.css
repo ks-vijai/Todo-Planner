@@ -1,3 +1,7 @@
+.home-page {
+  background: var(--bg-light-yellow);
+}
+
 .overall-board {
   align-items: center;
   animation: slide-down 1s forwards;
@@ -26,11 +30,14 @@
 }
 
 .task-progress-list {
+  align-items: center;
+  display: flex;
   padding-left: 20px;
 }
 
 .progress-details {
   font-size: 20px;
+  margin-right: 5px;
 }
 
 .overall-task-dashboard {
@@ -39,12 +46,20 @@
 }
 
 .overall-section {
-  border: 1px solid transparent;
+  background-color: var(--bg-medium-yellow);
   border-radius: 20px;
-  box-shadow: 0 0 0.3rem var(--bg-box-shadow);
   height: 25em;
   margin: 20px;
+  overflow: overlay;
   width: 37em;
+}
+
+.task-section {
+  animation: slide-left 1s forwards;
+}
+
+.project-container {
+  animation: slide-right 1s forwards;
 }
 
 .girl-profile-icon {
@@ -75,7 +90,10 @@
 }
 
 .heading-bar {
+  background: var(--bg-medium-yellow);
   font-size: 150%;
+  position: sticky;
+  top: 0;
 }
 
 .overall-todo-tasks {
@@ -88,6 +106,7 @@
 }
 
 .task-name {
+  align-items: center;
   align-self: flex-start;
   display: flex;
   text-align: center;
@@ -104,6 +123,7 @@
 
 .complete-icon {
   color: var(--bg-dark-grey-icon);
+  margin-right: 5px;
 }
 
 .classifier-buttons {
@@ -180,13 +200,15 @@
 
 .projects-section {
   align-items: center;
+  background-color: var(--bg-light-grey-title);
   border-radius: 20px;
   cursor: pointer;
   display: flex;
   justify-content: center;
   margin: 0 20px 20px 20px;
+  min-width: fit-content;
   padding: 10px;
-  width: fit-content;
+  width: 230px;
 }
 
 .project-name {
@@ -234,7 +256,9 @@
 .people-collaborators {
   align-items: center;
   border: 1px dotted var(--bg-general-grey);
+  background-color: var(--bg-dark-red);
   border-radius: 20px;
+  color: var(--primary-white);
   display: flex;
   flex-direction: column;
   height: 17em;
@@ -249,8 +273,8 @@
 }
 
 .invitation-button {
-  background-color: var(--bg-light-grey-title);
-  border: 1px dotted var(--primary-black);
+  background-color: var(--bg-medium-red);
+  border: 1px solid var(--primary-white);
   border-radius: 20px;
   cursor: pointer;
   margin: 20px;
@@ -259,11 +283,7 @@
 
 .overall-todo-tasks:hover,
 .projects-section:hover {
-  background-color: var(--bg-light-grey-title);
-}
-
-.overall-section:hover {
-  border: 1px solid var(--primary-black);
+  background-color: var(--bg-dark-yellow);
 }
 
 .complete-icon:hover {
@@ -292,5 +312,15 @@
   }
   100% {
     transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    transform: translateX(500%);
+  }
+
+  to {
+    transform: translateX(0%);
   }
 }

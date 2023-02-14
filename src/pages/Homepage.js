@@ -160,7 +160,7 @@ function Homepage() {
             taskStatus={taskStatus}
           />
         </div>
-        <div className="overall-section">
+        <div className="overall-section project-container">
           <div className="heading-bar projects-heading">Projects</div>
           <div className="projects-list">
             <div className="projects-section">
@@ -169,6 +169,9 @@ function Homepage() {
               </div>
               <div className="project-text">Create Project</div>
             </div>
+            <OverallProjects />
+            <OverallProjects />
+            <OverallProjects />
             <OverallProjects />
             <OverallProjects />
             <OverallProjects />
@@ -215,7 +218,7 @@ function Homepage() {
             assignedTasks={true}
           />
         </div>
-        <div className="overall-section">
+        <div className="overall-section  project-container">
           <div className="heading-bar tasks-assigned-heading">
             People Collaborators
           </div>
