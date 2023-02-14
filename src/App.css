@@ -8,3 +8,24 @@
   padding: 0;
   text-decoration: none;
 }
+
+::-webkit-scrollbar {
+  border-radius: inherit;
+  height: 10px;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-medium-yellow);
+  border-radius: inherit;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-dark-yellow);
+  border-radius: inherit;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: var(--bg-dark-yellow);
+  border-radius: inherit;
+}
