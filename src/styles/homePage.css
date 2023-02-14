@@ -51,7 +51,8 @@
   height: 25em;
   margin: 20px;
   overflow: overlay;
-  width: 37em;
+  min-width: 28em;
+  width: 46%;
 }
 
 .task-section {
@@ -74,6 +75,12 @@
   align-items: center;
   border-bottom: 1px solid var(--bg-general-grey);
   display: flex;
+}
+
+.classification-container {
+  background: var(--bg-medium-yellow);
+  position: sticky;
+  top: 0;
 }
 
 .task-options {

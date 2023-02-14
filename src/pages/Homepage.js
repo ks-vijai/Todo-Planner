@@ -106,7 +106,7 @@ function Homepage() {
       </div>
       <div className="overall-task-dashboard">
         <div className="task-section overall-section">
-          <div className="task-classification-container">
+          <div className="task-classification-container classification-container ">
             <motion.div
               animate={{ scale: 1, rotate: 360 }}
               initial={{ scale: 0 }}
@@ -182,33 +182,35 @@ function Homepage() {
       </div>
       <div className="overall-task-dashboard">
         <div className="task-section overall-section">
-          <div className="heading-bar tasks-assigned-heading">
-            Tasks I've assigned
-          </div>
-          <div className="task-classifier tasks-assigned">
-            <div
-              className="classifier-buttons active-class"
-              onClick={(event) =>
-                changeClassifier("upcoming", "AssignedTasks", event)
-              }
-            >
-              Upcoming
+          <div className="classification-container">
+            <div className="heading-bar tasks-assigned-heading">
+              Tasks I've assigned
             </div>
-            <div
-              className="classifier-buttons"
-              onClick={(event) =>
-                changeClassifier("overdue", "AssignedTasks", event)
-              }
-            >
-              Overdue
-            </div>
-            <div
-              className="classifier-buttons"
-              onClick={(event) =>
-                changeClassifier("completed", "AssignedTasks", event)
-              }
-            >
-              Completed
+            <div className="task-classifier tasks-assigned">
+              <div
+                className="classifier-buttons active-class"
+                onClick={(event) =>
+                  changeClassifier("upcoming", "AssignedTasks", event)
+                }
+              >
+                Upcoming
+              </div>
+              <div
+                className="classifier-buttons"
+                onClick={(event) =>
+                  changeClassifier("overdue", "AssignedTasks", event)
+                }
+              >
+                Overdue
+              </div>
+              <div
+                className="classifier-buttons"
+                onClick={(event) =>
+                  changeClassifier("completed", "AssignedTasks", event)
+                }
+              >
+                Completed
+              </div>
             </div>
           </div>
           <OverallTasks
