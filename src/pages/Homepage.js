@@ -66,7 +66,13 @@ function Homepage() {
   };
 
   return (
-    <div className="home-page">
+    <motion.div
+      className="home-page"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <div className="overall-board">
         <div className="date-day">Wednesday, February 1</div>
         <div className="greeting-message">Good Evening, Vijai</div>
@@ -105,9 +111,10 @@ function Homepage() {
               animate={{ scale: 1, rotate: 360 }}
               initial={{ scale: 0 }}
               transition={{
-                type: "spring",
+                type: "tween",
                 stiffness: 260,
                 delay: 1,
+                duration: 0.7,
                 damping: 20,
               }}
             >
@@ -215,7 +222,7 @@ function Homepage() {
           <PeopleCollaborator />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 

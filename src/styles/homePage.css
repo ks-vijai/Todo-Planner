@@ -1,11 +1,14 @@
 .overall-board {
   align-items: center;
+  animation: slide-down 1s forwards;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: 2s;
 }
 
 .date-day {
+  animation: slide-left 1s forwards;
   padding: 10px;
 }
 
@@ -269,4 +272,25 @@
 
 .classifier-buttons:hover {
   border-bottom: 5px solid var(--bg-general-grey);
+}
+
+/* Keyframes Animations */
+
+@keyframes slide-left {
+  from {
+    transform: translateX(-500%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slide-down {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

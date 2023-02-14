@@ -1,7 +1,17 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 function Dashboard() {
-  return <div>Dashboard</div>;
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      Dashboard
+    </motion.div>
+  );
 }
 
 export default Dashboard;
