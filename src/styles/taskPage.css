@@ -1,0 +1,86 @@
+.task-container {
+  background-color: var(--bg-light-yellow);
+  padding: 30px;
+}
+
+.task-page {
+  background-color: var(--primary-white);
+  border-radius: 30px;
+  display: flex;
+  height: 90%;
+}
+
+.tasks-section {
+  height: 78vh;
+  min-height: 78vh;
+  margin: 20px 10px;
+  overflow: auto;
+  padding: 0 10px;
+  width: 15%;
+}
+
+.section-heading {
+  align-items: center;
+  background: var(--primary-white);
+  display: flex;
+  justify-content: space-around;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.add-button {
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 25px;
+  margin: 2px;
+  padding: 0 5px;
+}
+
+.task-card {
+  border-radius: 10px;
+  border: 1px solid var(--bg-light-grey-title);
+  cursor: pointer;
+  margin: 10px 0;
+  padding: 8px;
+}
+
+.deadlines {
+  display: flex;
+}
+
+.dates {
+  border-radius: 10px;
+  font-size: 10px;
+  margin: 8px;
+  padding: 3px;
+}
+
+.tasks-name {
+  color: var(--bg-maroon);
+  word-wrap: break-word;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+.completion-icon {
+  align-items: center;
+  display: flex;
+}
+
+.start-date,
+.completion-icon .icon:hover {
+  color: var(--bg-dark-green);
+}
+
+.end-date {
+  color: var(--bg-medium-red);
+}
+
+.dates:hover {
+  background: var(--bg-light-yellow);
+}
+
+.add-button:hover {
+  background-color: var(--bg-light-yellow);
+}

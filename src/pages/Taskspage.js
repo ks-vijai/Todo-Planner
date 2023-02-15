@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import TaskCard from "../components/TaskCard";
 
 function Taskspage() {
   return (
@@ -9,7 +10,60 @@ function Taskspage() {
       transition={{ duration: 1 }}
       exit={{ opacity: 0 }}
     >
-      Taskspage
+      <div className="task-container">
+        <div className="task-page">
+          <div className="tasks-section">
+            <div className="section-heading">
+              <div>📬 New tasks</div>
+              <div className="add-button">+</div>
+            </div>
+            <div>
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+            </div>
+          </div>
+          <div className="tasks-section">
+            <div className="section-heading">
+              <div>✍️ Current</div>
+              <div className="add-button">+</div>
+            </div>
+            <div>
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+            </div>
+          </div>
+          <div className="tasks-section">
+            <div className="section-heading">
+              <div>✨ Done</div>
+              <div className="add-button">+</div>
+            </div>
+            <div>
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+              <TaskCard />
+            </div>
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 }

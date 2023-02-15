@@ -28,6 +28,7 @@ header {
 }
 
 .nav-link-text {
+  color: var(--bg-maroon);
   font-size: 20px;
 }
 
