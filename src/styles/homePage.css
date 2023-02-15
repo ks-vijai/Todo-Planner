@@ -41,8 +41,10 @@
 }
 
 .overall-task-dashboard {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .overall-section {
@@ -51,8 +53,8 @@
   height: 25em;
   margin: 20px;
   overflow: overlay;
-  min-width: 28em;
-  width: 46%;
+  min-width: 30em;
+  width: 44%;
 }
 
 .task-section {
@@ -219,11 +221,11 @@
 }
 
 .project-name {
-  color: var(--bg-dark-blue);
+  color: var(--bg-dark-red);
 }
 
 .project-icon {
-  color: var(--bg-dark-blue);
+  color: var(--bg-dark-red);
 }
 
 .project-text {

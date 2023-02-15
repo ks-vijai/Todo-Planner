@@ -93,7 +93,19 @@
 }
 
 .user-account {
+  background: var(--bg-medium-yellow);
+  border: 1px solid var(--bg-medium-red);
+  border-radius: 50%;
+  color: var(--bg-maroon);
   cursor: pointer;
-  font-size: 30px;
+  font-size: 15px;
+  margin: 10px;
   position: relative;
+}
+
+.user-name {
+  align-items: center;
+  font-size: 25px;
+  padding: 10px;
+  text-align: center;
 }
