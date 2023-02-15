@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import TaskCard from "../components/TaskCard";
+import Cycle from "../assets/cycle.gif";
 
 function Taskspage() {
   return (
@@ -60,6 +61,16 @@ function Taskspage() {
               <TaskCard />
               <TaskCard />
               <TaskCard />
+            </div>
+          </div>
+          <div className="display-section">
+            <div>Select a task to display.</div>
+            <div>
+              <img
+                src={Cycle}
+                alt="Loading Cycle"
+                className="cycle-animation"
+              />
             </div>
           </div>
         </div>

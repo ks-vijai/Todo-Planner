@@ -16,7 +16,7 @@
   margin: 20px 10px;
   overflow: auto;
   padding: 0 10px;
-  width: 15%;
+  width: 400px;
 }
 
 .section-heading {
@@ -75,6 +75,22 @@
 
 .end-date {
   color: var(--bg-medium-red);
+}
+
+.display-section {
+  align-items: center;
+  border-radius: 30px;
+  border: 1px solid var(--bg-dark-grey-icon);
+  color: var(--bg-maroon);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 50px;
+  width: 100%;
+}
+
+.cycle-animation {
+  height: 10em;
 }
 
 .dates:hover {
