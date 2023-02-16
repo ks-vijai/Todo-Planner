@@ -1,9 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import TaskCard from "../components/TaskCard";
 import Cycle from "../assets/cycle.gif";
+import { GrCheckmark } from "react-icons/gr";
+import { BiLike, BiArrowToRight } from "react-icons/bi";
+import { AiTwotoneLock } from "react-icons/ai";
+import { RxRocket } from "react-icons/rx";
+import { BsCalendar4 } from "react-icons/bs";
+import DatePicker from "react-datepicker";
+import subDays from "date-fns/subDays";
+import addDays from "date-fns/addDays";
+import "react-datepicker/dist/react-datepicker.css";
+import Select from "react-select";
 
 function Taskspage() {
+  const updateLikeOption = (event) => {
+    event.target.classList.toggle("like-button-active");
+  };
+  const projectOptions = [
+    { key: 1, label: "Tic Tac Toe", value: "Tic Tac Toe" },
+    { key: 2, label: "Todo Planner", value: "Todo Planner" },
+  ];
+  const taskOptions = [
+    { key: 1, label: "📬 New task", value: "New Task" },
+    { key: 2, label: "✍️ Current", value: "Current" },
+    { key: 3, label: "✨ Done", value: "Completed" },
+  ];
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(null);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -63,7 +88,7 @@ function Taskspage() {
               <TaskCard />
             </div>
           </div>
-          <div className="display-section">
+          {/* <div className="display-section">
             <div>Select a task to display.</div>
             <div>
               <img
@@ -71,6 +96,88 @@ function Taskspage() {
                 alt="Loading Cycle"
                 className="cycle-animation"
               />
+            </div>
+          </div> */}
+          <div className="display-task">
+            <div className="display-bar">
+              <div className="mark-complete">
+                <GrCheckmark className="tick-symbol" />
+                Mark Complete
+              </div>
+              <div className="display-close-section">
+                <div>
+                  <BiLike
+                    className="like-button"
+                    onClick={(event) => updateLikeOption(event)}
+                  />
+                </div>
+                <div className="close-section">
+                  <BiArrowToRight className="close-icon" />
+                  <span className="close-text">Close</span>
+                </div>
+              </div>
+            </div>
+            <div className="private-section">
+              <AiTwotoneLock />
+              <span className="private-text">This task is private to you</span>
+            </div>
+            <div>
+              <div className="task-detail-container">
+                <div contentEditable="true" className="task-name-editable">
+                  <RxRocket className="rocket-icon" />
+                  <span>Task: Hi Hello Duplicate task</span>
+                </div>
+                <div className="select-project">
+                  Project:
+                  <Select
+                    placeholder="Select Project"
+                    className="dropdown-box"
+                    options={projectOptions}
+                  />
+                </div>
+                <div className="task-dates">
+                  <div className="edit-start-date">
+                    Start Date: <BsCalendar4 />
+                    <DatePicker
+                      selected={startDate}
+                      onChange={(date) => setStartDate(date)}
+                      minDate={subDays(new Date(), 0)}
+                      placeholderText="Select Start Date"
+                      dateFormat="MMMM d"
+                      className="date-picker"
+                    />
+                  </div>
+                  <div className="edit-start-date">
+                    End Date: <BsCalendar4 className="calendar-icon" />
+                    <DatePicker
+                      selected={endDate}
+                      onChange={(date) => setEndDate(date)}
+                      maxDate={addDays(new Date(), 5)}
+                      placeholderText="Select End Date"
+                      dateFormat="MMMM d"
+                      className="end-date-picker"
+                    />
+                  </div>
+                </div>
+                <div className="select-project">
+                  Task Status:
+                  <Select
+                    placeholder="Select Project"
+                    className="dropdown-box"
+                    options={taskOptions}
+                  />
+                </div>
+                <div className="edit-description">
+                  Description :
+                  <div className="description-box" contentEditable="true">
+                    Tic Tac Toe in React JS
+                  </div>
+                </div>
+                <div className="last-buttons">
+                  <div className="view-buttons save-button">Save</div>
+                  <div className="view-buttons">Delete Task</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
