@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import BarChart from "../components/BarChart";
 import { taskData } from "../data/data";
+import PieChart from "../components/PieChart";
 
 const Analytics = () => {
-  const [tasksData, setTasksData] = useState({
+  const [pieChartData, setPieChartData] = useState({
     labels: ["To Do", "Inprogress", "Completed"],
     datasets: [
       {
@@ -14,8 +15,22 @@ const Analytics = () => {
     ],
   });
 
-  const barChart = () => {
-    setTasksData({
+  const [barChartData, setBarChartData] = useState({
+    labels: taskData.map((task) => task.taskName),
+    datasets: [
+      {
+        label: "Liked",
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      },
+      {
+        label: "Completed",
+        data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      },
+    ],
+  });
+
+  const pieChart = () => {
+    setPieChartData({
       labels: ["To Do", "Inprogress", "Completed"],
       datasets: [
         {
@@ -37,7 +52,32 @@ const Analytics = () => {
     });
   };
 
+  const barChart = () => {
+    setBarChartData({
+      labels: taskData.map((task) => task.taskName),
+      datasets: [
+        {
+          id: 1,
+          label: "Completed",
+          data: [20, 10, 20, 10, 10, 10, 20, 20, 20, 10],
+          backgroundColor: ["rgb(128, 0, 0, 0.2)"],
+          borderColor: ["rgb(128, 0, 0, 1)"],
+          borderWidth: 1,
+        },
+        {
+          id: 2,
+          label: "Good Task",
+          data: [10, 20, 10, 20, 20, 20, 20, 20, 10, 20],
+          backgroundColor: ["rgb(255, 244, 97, 0.5)"],
+          borderColor: ["rgb(255, 244, 97, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    });
+  };
+
   useEffect(() => {
+    pieChart();
     barChart();
   }, []);
 
@@ -50,7 +90,8 @@ const Analytics = () => {
     >
       <div className="task-container">
         <div className="task-page">
-          <BarChart chartData={tasksData} />
+          <BarChart chartData={barChartData} />
+          <PieChart chartData={pieChartData} />
         </div>
       </div>
     </motion.div>

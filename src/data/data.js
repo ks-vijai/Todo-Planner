@@ -1,6 +1,7 @@
 export const taskData = [
   {
     id: 1,
+    taskName: "Todo Planner",
     taskStatus: "Completed",
     liked: "Yes",
     goodTask: "No",
@@ -8,6 +9,7 @@ export const taskData = [
   },
   {
     id: 2,
+    taskName: "TicTacToe",
     taskStatus: "To Do",
     liked: "No",
     goodTask: "Yes",
@@ -15,6 +17,7 @@ export const taskData = [
   },
   {
     id: 3,
+    taskName: "Food App",
     taskStatus: "Inprogress",
     liked: "No",
     goodTask: "Yes",
@@ -22,6 +25,7 @@ export const taskData = [
   },
   {
     id: 4,
+    taskName: "Daily Tasks",
     taskStatus: "Inprogress",
     liked: "Yes",
     goodTask: "Yes",
@@ -29,6 +33,7 @@ export const taskData = [
   },
   {
     id: 5,
+    taskName: "Scrum",
     taskStatus: "To Do",
     liked: "No",
     goodTask: "No",
@@ -36,6 +41,7 @@ export const taskData = [
   },
   {
     id: 6,
+    taskName: "Project",
     taskStatus: "Completed",
     liked: "No",
     goodTask: "No",
@@ -43,6 +49,7 @@ export const taskData = [
   },
   {
     id: 7,
+    taskName: "Paper",
     taskStatus: "To Do",
     liked: "Yes",
     goodTask: "No",
@@ -50,6 +57,7 @@ export const taskData = [
   },
   {
     id: 8,
+    taskName: "Scrum",
     taskStatus: "Completed",
     liked: "No",
     goodTask: "Yes",
@@ -57,6 +65,7 @@ export const taskData = [
   },
   {
     id: 9,
+    taskName: "Water",
     taskStatus: "Inprogress",
     liked: "Yes",
     goodTask: "No",
@@ -64,6 +73,7 @@ export const taskData = [
   },
   {
     id: 10,
+    taskName: "Plug Charge",
     taskStatus: "Inprogress",
     liked: "Yes",
     goodTask: "No",
