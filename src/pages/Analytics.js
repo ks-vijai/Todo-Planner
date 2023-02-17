@@ -3,9 +3,20 @@ import { motion } from "framer-motion";
 import BarChart from "../components/BarChart";
 import { taskData } from "../data/data";
 import PieChart from "../components/PieChart";
+import RadarChart from "../components/RadarChart";
 
 const Analytics = () => {
   const [pieChartData, setPieChartData] = useState({
+    labels: ["To Do", "Inprogress", "Completed"],
+    datasets: [
+      {
+        label: "No of Tasks",
+        data: [0, 0, 0],
+      },
+    ],
+  });
+
+  const [radarChartData, radarPieChartData] = useState({
     labels: ["To Do", "Inprogress", "Completed"],
     datasets: [
       {
@@ -76,9 +87,34 @@ const Analytics = () => {
     });
   };
 
+  const radarChart = () => {
+    radarPieChartData({
+      labels: taskData.map((task) => task.taskName),
+      datasets: [
+        {
+          id: 1,
+          label: "Completed",
+          data: [20, 10, 20, 10, 10, 10, 20, 20, 20, 10],
+          backgroundColor: ["rgb(143, 0, 255, 0.2)"],
+          borderColor: ["rgb(143, 0, 255, 1)"],
+          borderWidth: 1,
+        },
+        {
+          id: 2,
+          label: "Good Task",
+          data: [10, 20, 10, 20, 20, 20, 20, 20, 10, 20],
+          backgroundColor: ["rgb(255, 244, 97, 0.5)"],
+          borderColor: ["rgb(255, 244, 97, 1)"],
+          borderWidth: 1,
+        },
+      ],
+    });
+  };
+
   useEffect(() => {
     pieChart();
     barChart();
+    radarChart();
   }, []);
 
   return (
@@ -89,9 +125,14 @@ const Analytics = () => {
       exit={{ opacity: 0 }}
     >
       <div className="task-container">
-        <div className="task-page">
+        <div className="task-page analytics-page">
           <BarChart chartData={barChartData} />
           <PieChart chartData={pieChartData} />
+          <RadarChart chartData={radarChartData} />
+          <div>
+            This is a System App generated based on your performance on your
+            tasks
+          </div>
         </div>
       </div>
     </motion.div>
