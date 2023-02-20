@@ -123,7 +123,11 @@ function Taskspage() {
             </div>
             <div>
               <div className="task-detail-container">
-                <div contentEditable="true" className="task-name-editable">
+                <div
+                  contentEditable="true"
+                  suppressContentEditableWarning={true}
+                  className="task-name-editable"
+                >
                   <RxRocket className="rocket-icon" />
                   <span>Task: Hi Hello Duplicate task</span>
                 </div>
@@ -169,7 +173,11 @@ function Taskspage() {
                 </div>
                 <div className="edit-description">
                   Description :
-                  <div className="description-box" contentEditable="true">
+                  <div
+                    className="description-box"
+                    contentEditable="true"
+                    suppressContentEditableWarning={true}
+                  >
                     Tic Tac Toe in React JS
                   </div>
                 </div>
