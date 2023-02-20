@@ -129,7 +129,7 @@ const Analytics = () => {
           <BarChart chartData={barChartData} />
           <PieChart chartData={pieChartData} />
           <RadarChart chartData={radarChartData} />
-          <div>
+          <div className="system-message">
             This is a System App generated based on your performance on your
             tasks
           </div>

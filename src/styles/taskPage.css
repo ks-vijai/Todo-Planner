@@ -16,10 +16,10 @@
 .tasks-section {
   height: 78vh;
   min-height: 78vh;
+  min-width: 210px;
   margin: 20px 10px;
   overflow: auto;
   padding: 0 10px;
-  min-width: 210px;
 }
 
 .section-heading {

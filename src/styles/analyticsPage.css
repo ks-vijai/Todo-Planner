@@ -1,8 +1,8 @@
 .analytics-page {
-  align-items: center;
   color: var(--bg-maroon);
   flex-wrap: wrap;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .bar-chart {
@@ -13,4 +13,8 @@
 .pie-chart {
   padding: 30px 50px;
   width: 20em;
+}
+
+.system-message {
+  padding: 50px;
 }

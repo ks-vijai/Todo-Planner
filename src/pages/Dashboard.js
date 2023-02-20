@@ -8,9 +8,8 @@ function Dashboard() {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
       exit={{ opacity: 0 }}
-    >
-      Dashboard
-    </motion.div>
+      
+    ></motion.div>
   );
 }
 
