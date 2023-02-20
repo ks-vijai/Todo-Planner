@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import ProfileCard from "./ProfileCard";
 import { AiOutlineLogout } from "react-icons/ai";
+import { Tooltip } from "antd";
 
 function Sidebar({ children }) {
   const [showCard, setShowCard] = useState(false);
@@ -59,11 +60,19 @@ function Sidebar({ children }) {
           <div>
             <div className="profile-icon">
               <div className="user-account">
-                <span className="user-name">VS</span>
+                <Tooltip
+                  placement="bottom"
+                  color="#f9a320"
+                  title="View Profile"
+                >
+                  <span className="user-name">VS</span>
+                </Tooltip>
                 {showCard && <ProfileCard />}
               </div>
               <div>
-                <AiOutlineLogout className="logout-button" />
+                <Tooltip placement="bottom" color="#800000" title="Logout">
+                  <AiOutlineLogout className="logout-button" />
+                </Tooltip>
               </div>
             </div>
           </div>

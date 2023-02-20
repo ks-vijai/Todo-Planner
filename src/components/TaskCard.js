@@ -1,6 +1,7 @@
 import React from "react";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
+import { Tooltip } from "antd";
 
 function TaskCard() {
   return (
@@ -14,7 +15,9 @@ function TaskCard() {
       }}
     >
       <div className="completion-icon">
-        <FaRegCheckCircle className="icon" />
+        <Tooltip placement="bottom" color="#228b22" title="Mark as Completed">
+          <FaRegCheckCircle className="icon" />
+        </Tooltip>
         <span className="tasks-name"> Hi helo duplicate task</span>
       </div>
       <div className="deadlines">

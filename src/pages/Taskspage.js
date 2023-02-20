@@ -12,9 +12,11 @@ import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
 import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
+import { Tooltip } from "antd";
 
 function Taskspage() {
   const updateLikeOption = (event) => {
+    event.preventDefault();
     event.target.classList.toggle("like-button-active");
   };
   const projectOptions = [
@@ -41,7 +43,9 @@ function Taskspage() {
           <div className="tasks-section">
             <div className="section-heading">
               <div>📬 New tasks</div>
-              <div className="add-button">+</div>
+              <Tooltip placement="bottom" color="#f9a320" title="Add New Task">
+                <div className="add-button">+</div>
+              </Tooltip>
             </div>
             <div>
               <TaskCard />
@@ -53,7 +57,9 @@ function Taskspage() {
           <div className="tasks-section">
             <div className="section-heading">
               <div>✍️ Current</div>
-              <div className="add-button">+</div>
+              <Tooltip placement="bottom" color="#f9a320" title="Add New Task">
+                <div className="add-button">+</div>
+              </Tooltip>
             </div>
             <div>
               <TaskCard />
@@ -79,7 +85,9 @@ function Taskspage() {
           <div className="tasks-section">
             <div className="section-heading">
               <div>✨ Done</div>
-              <div className="add-button">+</div>
+              <Tooltip placement="bottom" color="#f9a320" title="Add New Task">
+                <div className="add-button">+</div>
+              </Tooltip>
             </div>
             <div>
               <TaskCard />
@@ -100,21 +108,31 @@ function Taskspage() {
           </div> */}
           <div className="display-task">
             <div className="display-bar">
-              <div className="mark-complete">
-                <GrCheckmark className="tick-symbol" />
-                Mark Complete
-              </div>
+              <Tooltip
+                placement="bottom"
+                color="#228b22"
+                title="Mark as Completed"
+              >
+                <div className="mark-complete">
+                  <GrCheckmark className="tick-symbol" />
+                  Mark Complete
+                </div>
+              </Tooltip>
               <div className="display-close-section">
-                <div>
-                  <BiLike
-                    className="like-button"
-                    onClick={(event) => updateLikeOption(event)}
-                  />
-                </div>
-                <div className="close-section">
-                  <BiArrowToRight className="close-icon" />
-                  <span className="close-text">Close</span>
-                </div>
+                <Tooltip placement="bottom" color="#e15643" title="Like Task">
+                  <div>
+                    <BiLike
+                      className="like-button"
+                      onClick={(event) => updateLikeOption(event)}
+                    />
+                  </div>
+                </Tooltip>
+                <Tooltip placement="bottom" color="#e15643" title="Close Task">
+                  <div className="close-section">
+                    <BiArrowToRight className="close-icon" />
+                    <span className="close-text">Close</span>
+                  </div>
+                </Tooltip>
               </div>
             </div>
             <div className="private-section">
@@ -182,8 +200,16 @@ function Taskspage() {
                   </div>
                 </div>
                 <div className="last-buttons">
-                  <div className="view-buttons save-button">Save</div>
-                  <div className="view-buttons">Delete Task</div>
+                  <Tooltip placement="bottom" color="#228b22" title="Save Task">
+                    <div className="view-buttons save-button">Save</div>
+                  </Tooltip>
+                  <Tooltip
+                    placement="bottom"
+                    color="#e15643"
+                    title="Delete Task"
+                  >
+                    <div className="view-buttons">Delete Task</div>
+                  </Tooltip>
                 </div>
               </div>
             </div>
