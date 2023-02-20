@@ -1,0 +1,35 @@
+.calendar-page {
+  overflow-y: auto;
+}
+
+.calendar {
+  margin: 20px;
+  width: 75vw;
+}
+
+.calendar-display {
+  animation: slide-right 1s forwards;
+  border: 1px solid var(--bg-light-grey-title);
+  border-radius: 20px;
+  color: var(--bg-maroon);
+  height: 97vh;
+  margin: 20px;
+  overflow-x: auto;
+  width: 22vw;
+}
+
+.display-section-heading {
+  background: var(--bg-light-grey-title);
+  border-bottom: 1px solid var(--bg-light-grey-title);
+  padding: 20px;
+  position: sticky;
+  top: 0;
+}
+
+.calendar-task-contents {
+  padding: 20px;
+}
+
+.selected-date {
+  color: var(--bg-dark-yellow);
+}
