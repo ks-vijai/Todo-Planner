@@ -14,6 +14,8 @@
 }
 
 .tasks-section {
+  border: 1px solid var(--bg-light-grey-title);
+  border-radius: 20px;
   height: 78vh;
   min-height: 78vh;
   min-width: 210px;
