@@ -272,6 +272,15 @@
   width: 90%;
 }
 
+.default-message {
+  align-items: center;
+  color: var(--bg-maroon);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 65vh;
+}
+
 .dates:hover {
   background: var(--bg-light-yellow);
 }

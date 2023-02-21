@@ -7,6 +7,7 @@ import { BiLike, BiArrowToRight } from "react-icons/bi";
 import { AiTwotoneLock } from "react-icons/ai";
 import { RxRocket } from "react-icons/rx";
 import { BsCalendar4 } from "react-icons/bs";
+import { useSelector, useDispatch } from "react-redux";
 import DatePicker from "react-datepicker";
 import subDays from "date-fns/subDays";
 import addDays from "date-fns/addDays";
@@ -15,6 +16,10 @@ import Select from "react-select";
 import { Tooltip } from "antd";
 
 function Taskspage() {
+  const [todo, setTodo] = useState(false);
+  const [inProgress, setInProgress] = useState(false);
+  const [completed, setCompleted] = useState(false);
+
   const updateLikeOption = (event) => {
     event.preventDefault();
     event.target.classList.toggle("like-button-active");
@@ -30,6 +35,9 @@ function Taskspage() {
   ];
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
+
+  const userTasks = useSelector((state) => state.tasks.tasksList[0]);
+  const dispatch = useDispatch();
 
   return (
     <motion.div
@@ -48,10 +56,14 @@ function Taskspage() {
               </Tooltip>
             </div>
             <div>
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
+              {todo && <DefaultMessage />}
+              {
+                <AddTaskCard
+                  bucketRef={setTodo}
+                  userTasks={userTasks}
+                  taskBucket="Todo"
+                />
+              }
             </div>
           </div>
           <div className="tasks-section">
@@ -62,24 +74,14 @@ function Taskspage() {
               </Tooltip>
             </div>
             <div>
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
+              {inProgress && <DefaultMessage />}
+              {
+                <AddTaskCard
+                  bucketRef={setInProgress}
+                  userTasks={userTasks}
+                  taskBucket="InProgress"
+                />
+              }
             </div>
           </div>
           <div className="tasks-section">
@@ -90,10 +92,14 @@ function Taskspage() {
               </Tooltip>
             </div>
             <div>
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
+              {completed && <DefaultMessage />}
+              {
+                <AddTaskCard
+                  bucketRef={setCompleted}
+                  userTasks={userTasks}
+                  taskBucket="Completed"
+                />
+              }
             </div>
           </div>
           {/* <div className="display-section">
@@ -217,6 +223,33 @@ function Taskspage() {
         </div>
       </div>
     </motion.div>
+  );
+}
+
+function DefaultMessage() {
+  return (
+    <div className="default-message">
+      <div>No tasks to display</div>
+      <div>Add New Tasks</div>
+      <div>
+        <img src={Cycle} alt="Loading Cycle" className="cycle-animation" />
+      </div>
+    </div>
+  );
+}
+
+function AddTaskCard({ userTasks, bucketRef, taskBucket }) {
+  let showDefaultMessage = true;
+  return (
+    <>
+      {Object.values(userTasks)?.map((taskDetail) => {
+        if (taskDetail.progress === taskBucket) {
+          showDefaultMessage = false;
+          return <TaskCard taskDetail={taskDetail} key={taskDetail.id} />;
+        } else return null;
+      })}
+      {showDefaultMessage ? bucketRef(true) : bucketRef(false)}
+    </>
   );
 }
 

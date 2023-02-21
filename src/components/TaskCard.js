@@ -3,7 +3,7 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Tooltip } from "antd";
 
-function TaskCard() {
+function TaskCard({ taskDetail }) {
   return (
     <motion.div
       className="task-card"
@@ -18,11 +18,11 @@ function TaskCard() {
         <Tooltip placement="bottom" color="#228b22" title="Mark as Completed">
           <FaRegCheckCircle className="icon" />
         </Tooltip>
-        <span className="tasks-name"> Hi helo duplicate task</span>
+        <span className="tasks-name"> {taskDetail.taskName}</span>
       </div>
       <div className="deadlines">
-        <div className="dates start-date">Feb 15</div>
-        <div className="dates end-date">Feb 17</div>
+        <div className="dates start-date">{taskDetail.startDate}</div>
+        <div className="dates end-date">{taskDetail.endDate}</div>
       </div>
     </motion.div>
   );
