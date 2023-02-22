@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Calendar, Badge } from "antd";
 import TaskCard from "../components/TaskCard";
 import Cycle from "../assets/cycle.gif";
+import { useSelector, useDispatch } from "react-redux";
 
 function Goalspage() {
   const getListData = (value) => {
@@ -64,6 +65,7 @@ function Goalspage() {
       </ul>
     );
   };
+  const userTasks = useSelector((state) => state.tasks.tasksList[0]);
 
   return (
     <motion.div
@@ -99,10 +101,9 @@ function Goalspage() {
                   Sun Jan 01 2023 10:44:10 GMT+0530 (India Standard Time) {}
                 </div>
               </div>
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
-              <TaskCard />
+              {Object.values(userTasks)?.map((taskDetail) => {
+                return <TaskCard taskDetail={taskDetail} key={taskDetail.id} />;
+              })}
             </div>
           </div>
         </div>
