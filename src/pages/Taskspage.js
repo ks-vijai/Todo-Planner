@@ -16,10 +16,6 @@ import Select from "react-select";
 import { Tooltip } from "antd";
 
 function Taskspage() {
-  const [todo, setTodo] = useState(false);
-  const [inProgress, setInProgress] = useState(false);
-  const [completed, setCompleted] = useState(false);
-
   const updateLikeOption = (event) => {
     event.preventDefault();
     event.target.classList.toggle("like-button-active");
@@ -55,16 +51,7 @@ function Taskspage() {
                 <div className="add-button">+</div>
               </Tooltip>
             </div>
-            <div>
-              {todo && <DefaultMessage />}
-              {
-                <AddTaskCard
-                  bucketRef={setTodo}
-                  userTasks={userTasks}
-                  taskBucket="Todo"
-                />
-              }
-            </div>
+            <div>{<AddTaskCard userTasks={userTasks} taskBucket="Todo" />}</div>
           </div>
           <div className="tasks-section">
             <div className="section-heading">
@@ -74,14 +61,7 @@ function Taskspage() {
               </Tooltip>
             </div>
             <div>
-              {inProgress && <DefaultMessage />}
-              {
-                <AddTaskCard
-                  bucketRef={setInProgress}
-                  userTasks={userTasks}
-                  taskBucket="InProgress"
-                />
-              }
+              {<AddTaskCard userTasks={userTasks} taskBucket="InProgress" />}
             </div>
           </div>
           <div className="tasks-section">
@@ -92,14 +72,7 @@ function Taskspage() {
               </Tooltip>
             </div>
             <div>
-              {completed && <DefaultMessage />}
-              {
-                <AddTaskCard
-                  bucketRef={setCompleted}
-                  userTasks={userTasks}
-                  taskBucket="Completed"
-                />
-              }
+              {<AddTaskCard userTasks={userTasks} taskBucket="Completed" />}
             </div>
           </div>
           {/* <div className="display-section">
@@ -238,17 +211,18 @@ function DefaultMessage() {
   );
 }
 
-function AddTaskCard({ userTasks, bucketRef, taskBucket }) {
-  let showDefaultMessage = true;
+function AddTaskCard({ userTasks, taskBucket }) {
+  let containsTask = false;
+
   return (
     <>
       {Object.values(userTasks)?.map((taskDetail) => {
         if (taskDetail.progress === taskBucket) {
-          showDefaultMessage = false;
+          containsTask = true;
           return <TaskCard taskDetail={taskDetail} key={taskDetail.id} />;
         } else return null;
       })}
-      {showDefaultMessage ? bucketRef(true) : bucketRef(false)}
+      {containsTask ? null : <DefaultMessage />}
     </>
   );
 }
