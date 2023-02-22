@@ -2,10 +2,11 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Calendar, Badge } from "antd";
 import TaskCard from "../components/TaskCard";
+// eslint-disable-next-line no-unused-vars
 import Cycle from "../assets/cycle.gif";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-function Goalspage() {
+function CalendarPage() {
   const getListData = (value) => {
     let listData;
     switch (value.date()) {
@@ -112,4 +113,4 @@ function Goalspage() {
   );
 }
 
-export default Goalspage;
+export default CalendarPage;

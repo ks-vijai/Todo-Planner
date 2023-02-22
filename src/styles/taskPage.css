@@ -83,6 +83,7 @@
 }
 
 .display-section {
+  animation: slide-right 1s forwards;
   align-items: center;
   border-radius: 30px;
   border: 1px solid var(--bg-dark-grey-icon);
@@ -210,6 +211,13 @@
   align-items: center;
   display: flex;
   padding: 15px;
+}
+
+.new-task-name {
+  color: var(--bg-maroon);
+  display: inline-block;
+  margin-left: 20px;
+  width: 400px;
 }
 
 .date-picker {
