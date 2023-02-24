@@ -11,8 +11,11 @@ import Select from "react-select";
 import { Tooltip } from "antd";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
+import { addNewTask } from "../app/feature/tasks/taskSlice";
 
 function DisplayTask({ selectedBucket }) {
+  const dispatch = useDispatch();
   const updateLikeOption = (event) => {
     event.preventDefault();
     event.target.classList.toggle("like-button-active");
@@ -36,13 +39,36 @@ function DisplayTask({ selectedBucket }) {
   const taskDescription = useRef(null);
   const taskLiked = useRef(null);
 
-  const displayErrorMessage = (errorField) => {
-    toast.error(`Enter a valid ${errorField}`);
+  const displayErrorMessage = (errorMessage) => {
+    toast.error(errorMessage);
   };
 
   const saveTask = () => {
-    if (!taskNameContainer.current?.value) {
-      displayErrorMessage("Task Name");
+    let newTaskName = taskNameContainer.current?.value;
+    if (!newTaskName) {
+      displayErrorMessage("Enter a valid Task Name");
+    } else if (!taskStartDate.current.props.selected) {
+      console.log(taskStartDate.current);
+      displayErrorMessage("Select a valid Start date");
+    } else if (!taskEndDate.current.props.selected) {
+      displayErrorMessage("Select a valid End date");
+    } else {
+      dispatch(
+        addNewTask({
+          [newTaskName]: {
+            id: 2,
+            username: "vijai@gmail.com",
+            taskName: newTaskName,
+            startDate: "Wed 20",
+            endDate: "Wed 20",
+            project: taskProjectContainer.current.value,
+            progress: taskStatus.current.props.value.value,
+            description: "",
+            liked: false,
+          },
+        })
+      );
+      toast.success("Task Added Successfully");
     }
   };
 

@@ -2,43 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   userList: [],
-  tasksList: [
-    {
-      tictactoe: {
-        id: 1,
-        username: "vijai@gmail.com",
-        taskName: "tictactoe",
-        startDate: "Feb 22",
-        endDate: "Feb 23",
-        project: "",
-        progress: "Todo",
-        description: "",
-        liked: true,
-      },
-      planner: {
-        id: 2,
-        username: "vijai@gmail.com",
-        taskName: "planner",
-        startDate: "Feb 22",
-        endDate: "Feb 23",
-        project: "",
-        progress: "InProgress",
-        description: "",
-        liked: false,
-      },
-    },
-  ],
+  tasksList: [],
 };
 
 const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
-    newTask: (state, { payload }) => {
-      state.tasksList = payload;
+    addNewTask: (state, { payload }) => {
+      state.tasksList.push(payload);
     },
   },
 });
 
 export default taskSlice.reducer;
-export const { newTask } = taskSlice.actions;
+export const { addNewTask } = taskSlice.actions;
+
+export const selectTaskList = (state) => state.tasks.tasksList;

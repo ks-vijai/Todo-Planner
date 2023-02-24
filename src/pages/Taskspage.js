@@ -3,14 +3,12 @@ import { motion } from "framer-motion";
 import TaskCard from "../components/TaskCard";
 import Cycle from "../assets/cycle.gif";
 import { useSelector } from "react-redux";
-
 import "react-datepicker/dist/react-datepicker.css";
-
 import { Tooltip } from "antd";
 import DisplayTask from "../components/DisplayTask";
+import { selectTaskList } from "../app/feature/tasks/taskSlice";
 
 function Taskspage() {
-  const userTasks = useSelector((state) => state.tasks.tasksList[0]);
   const [displayTask, setDisplayTask] = useState(false);
   const [selectedBucket, setSelectedBucket] = useState({ id: 0, status: "" });
 
@@ -42,7 +40,7 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>{<AddTaskCard userTasks={userTasks} taskBucket="Todo" />}</div>
+            <div>{<AddTaskCard taskBucket="Todo" />}</div>
           </div>
           <div className="tasks-section">
             <div className="section-heading">
@@ -56,9 +54,7 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>
-              {<AddTaskCard userTasks={userTasks} taskBucket="InProgress" />}
-            </div>
+            <div>{<AddTaskCard taskBucket="InProgress" />}</div>
           </div>
           <div className="tasks-section">
             <div className="section-heading">
@@ -72,9 +68,7 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>
-              {<AddTaskCard userTasks={userTasks} taskBucket="Completed" />}
-            </div>
+            <div>{<AddTaskCard taskBucket="Completed" />}</div>
           </div>
           {!displayTask && (
             <div className="display-section">
@@ -107,15 +101,17 @@ function DefaultMessage() {
   );
 }
 
-function AddTaskCard({ userTasks, taskBucket }) {
+function AddTaskCard({ taskBucket }) {
   let containsTask = false;
+  const userTasks = useSelector(selectTaskList);
 
   return (
     <>
       {Object.values(userTasks)?.map((taskDetail) => {
-        if (taskDetail.progress === taskBucket) {
+        let taskData = Object.values(taskDetail)[0];
+        if (taskData.progress === taskBucket) {
           containsTask = true;
-          return <TaskCard taskDetail={taskDetail} key={taskDetail.id} />;
+          return <TaskCard taskDetail={taskData} key={taskDetail} />;
         } else return null;
       })}
       {containsTask ? null : <DefaultMessage />}
