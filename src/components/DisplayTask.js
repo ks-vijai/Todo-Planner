@@ -12,10 +12,19 @@ import { Tooltip } from "antd";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { addNewTask, selectTaskList } from "../app/feature/tasks/taskSlice";
+import {
+  addNewTask,
+  selectTaskList,
+  updateTask,
+} from "../app/feature/tasks/taskSlice";
 import { useSelector } from "react-redux";
 
-function DisplayTask({ selectedBucket, setDisplayTask }) {
+function DisplayTask({
+  selectedBucket,
+  displayTask,
+  setDisplayTask,
+  taskDetail,
+}) {
   const months = [
     "Jan",
     "Feb",
@@ -47,22 +56,27 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
     { key: 2, label: "✍️ Current", value: "InProgress" },
     { key: 3, label: "✨ Done", value: "Completed" },
   ];
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(taskDetail.startDate);
+  const [endDate, setEndDate] = useState(taskDetail.endDate);
   const [selectedProject, setSelectedProject] = useState("");
-  const taskNameContainer = useRef(null);
+  const taskNameRef = useRef(null);
   const taskStartDate = useRef(null);
   const taskEndDate = useRef(null);
   const taskStatus = useRef(null);
   const taskDescription = useRef(null);
-  const displayTaskRef = useRef(null);
 
   const displayErrorMessage = (errorMessage) => {
     toast.error(errorMessage);
   };
 
+  const closeTask = () => {
+    setDisplayTask((prevState) => {
+      return { ...prevState, display: false };
+    });
+  };
+
   const saveTask = () => {
-    let newTaskName = taskNameContainer.current?.value;
+    let newTaskName = taskNameRef.current.innerHTML;
     if (!newTaskName) {
       displayErrorMessage("Enter a valid Task Name");
     } else if (!startDate) {
@@ -70,32 +84,52 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
     } else if (!endDate) {
       displayErrorMessage("Select a valid End date");
     } else {
-      dispatch(
-        addNewTask({
-          [newTaskName]: {
-            id: userTasks.length + 1,
-            username: "vijai@gmail.com",
-            taskName: newTaskName,
-            startDate: months[startDate.getMonth()] + " " + startDate.getDate(),
-            endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
-            project: selectedProject,
-            progress: taskStatus.current.props.value.value,
-            description: taskDescription.current.value,
-            liked: taskLiked,
-          },
-        })
-      );
+      let userTaskDetails = {
+        id: userTasks.length + 1,
+        username: "vijai@gmail.com",
+        taskName: newTaskName,
+        startDate: months[startDate.getMonth()] + " " + startDate.getDate(),
+        selectedStartDate: `${startDate}`,
+        endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
+        selectedEndDate: `${endDate}`,
+        project: selectedProject,
+        progress: taskStatus.current.props.value.value,
+        description: taskDescription.current.value,
+        liked: taskLiked,
+      };
+
+      if (displayTask.type === "new") {
+        dispatch(
+          addNewTask({
+            [newTaskName]: userTaskDetails,
+          })
+        );
+      } else if (displayTask.type === "edit") {
+        dispatch(
+          updateTask({
+            [newTaskName]: userTaskDetails,
+            oldTaskName: taskDetail.taskName,
+          })
+        );
+      }
+
       toast.success("Task Added Successfully");
-      setDisplayTask(false);
+      closeTask();
     }
   };
 
   return (
     <>
-      <div className="display-task" ref={displayTaskRef}>
+      <div className="display-task">
         <div className="display-bar">
           <Tooltip placement="bottom" color="#228b22" title="Mark as Completed">
-            <div className="mark-complete">
+            <div
+              className={
+                displayTask.type !== "new"
+                  ? "mark-complete cursor-enable"
+                  : "mark-complete"
+              }
+            >
               <GrCheckmark className="tick-symbol" />
               Mark Complete
             </div>
@@ -104,7 +138,11 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
             <Tooltip placement="bottom" color="#e15643" title="Like Task">
               <div>
                 <BiLike
-                  className="like-button"
+                  className={
+                    taskDetail.liked
+                      ? "like-button like-button-active"
+                      : "like-button"
+                  }
                   onClick={(event) => updateLikeOption(event)}
                 />
               </div>
@@ -112,7 +150,9 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
             <Tooltip placement="bottom" color="#e15643" title="Close Task">
               <div className="close-section">
                 <BiArrowToRight className="close-icon" />
-                <span className="close-text">Close</span>
+                <span className="close-text" onClick={closeTask}>
+                  Close
+                </span>
               </div>
             </Tooltip>
           </div>
@@ -127,11 +167,16 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
               <RxRocket className="rocket-icon" />
               <span>
                 Task:
-                <input
+                <div
                   type="text"
-                  ref={taskNameContainer}
+                  ref={taskNameRef}
+                  contentEditable="true"
+                  spellCheck={false}
+                  suppressContentEditableWarning={true}
                   className="task-name-editable new-task-name"
-                />
+                >
+                  {taskDetail.taskName}
+                </div>
               </span>
             </div>
             <div className="select-project">
@@ -139,7 +184,8 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
               <Select
                 placeholder="Select Project"
                 className="dropdown-box"
-                onChange={(e) => setSelectedProject(e.target.value)}
+                selected={taskDetail.project}
+                onChange={(e) => setSelectedProject(e.value)}
                 options={projectOptions}
               />
             </div>
@@ -187,7 +233,7 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
                 ref={taskDescription}
                 suppressContentEditableWarning={true}
               >
-                Tic Tac Toe in React JS
+                {taskDetail.description}
               </div>
             </div>
             <div className="last-buttons">
@@ -197,7 +243,9 @@ function DisplayTask({ selectedBucket, setDisplayTask }) {
                 </div>
               </Tooltip>
               <Tooltip placement="bottom" color="#e15643" title="Delete Task">
-                <div className="view-buttons">Delete Task</div>
+                {displayTask.type !== "new" && (
+                  <div className="view-buttons">Delete Task</div>
+                )}
               </Tooltip>
             </div>
           </div>

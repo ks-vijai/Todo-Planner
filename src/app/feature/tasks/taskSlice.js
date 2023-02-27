@@ -12,10 +12,18 @@ const taskSlice = createSlice({
     addNewTask: (state, { payload }) => {
       state.tasksList.push(payload);
     },
+    updateTask: (state, { payload }) => {
+      state.tasksList = state.tasksList.filter((task) => {
+        let taskValues = Object.values(task)[0];
+        return taskValues.taskName !== payload.oldTaskName;
+      });
+      delete payload.oldTaskName;
+      state.tasksList.push(payload);
+    },
   },
 });
 
 export default taskSlice.reducer;
-export const { addNewTask } = taskSlice.actions;
+export const { addNewTask, updateTask } = taskSlice.actions;
 
 export const selectTaskList = (state) => state.tasks.tasksList;

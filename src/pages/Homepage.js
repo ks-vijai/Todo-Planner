@@ -54,7 +54,6 @@ function Homepage() {
     event.target.classList.toggle("active-class");
     switch (taskSection) {
       case "MyTasks":
-        console.log();
         setTaskStatus(taskStatus);
         break;
       case "AssignedTasks":

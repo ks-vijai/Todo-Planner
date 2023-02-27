@@ -9,11 +9,35 @@ import DisplayTask from "../components/DisplayTask";
 import { selectTaskList } from "../app/feature/tasks/taskSlice";
 
 function Taskspage() {
-  const [displayTask, setDisplayTask] = useState(false);
+  const [displayTask, setDisplayTask] = useState({
+    display: false,
+    type: "new",
+  });
   const [selectedBucket, setSelectedBucket] = useState({ id: 0, status: "" });
+  const [taskDetails, setTaskDetails] = useState({
+    taskName: "",
+    project: "",
+    startDate: new Date(),
+    endDate: new Date(),
+    description: "",
+    liked: false,
+  });
 
   const AddNewTask = (id, taskBucket) => {
-    setDisplayTask(true);
+    setDisplayTask((prevState) => {
+      return { ...prevState, display: true, type: "new" };
+    });
+    setTaskDetails((...prevState) => {
+      return {
+        ...prevState,
+        taskName: "",
+        project: "",
+        startDate: new Date(),
+        endDate: new Date(),
+        description: "",
+        liked: false,
+      };
+    });
     setSelectedBucket((prevState) => {
       return { ...prevState, id: id, status: taskBucket };
     });
@@ -40,7 +64,15 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>{<AddTaskCard taskBucket="Todo" />}</div>
+            <div>
+              {
+                <AddTaskCard
+                  taskBucket="Todo"
+                  setTaskDetails={setTaskDetails}
+                  setDisplayTask={setDisplayTask}
+                />
+              }
+            </div>
           </div>
           <div className="tasks-section">
             <div className="section-heading">
@@ -54,7 +86,15 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>{<AddTaskCard taskBucket="InProgress" />}</div>
+            <div>
+              {
+                <AddTaskCard
+                  taskBucket="InProgress"
+                  setTaskDetails={setTaskDetails}
+                  setDisplayTask={setDisplayTask}
+                />
+              }
+            </div>
           </div>
           <div className="tasks-section">
             <div className="section-heading">
@@ -68,9 +108,17 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>{<AddTaskCard taskBucket="Completed" />}</div>
+            <div>
+              {
+                <AddTaskCard
+                  taskBucket="Completed"
+                  setTaskDetails={setTaskDetails}
+                  setDisplayTask={setDisplayTask}
+                />
+              }
+            </div>
           </div>
-          {!displayTask && (
+          {!displayTask.display && (
             <div className="display-section">
               <div>Select a task to display.</div>
               <div>
@@ -82,10 +130,12 @@ function Taskspage() {
               </div>
             </div>
           )}
-          {displayTask && (
+          {displayTask.display && (
             <DisplayTask
               selectedBucket={selectedBucket}
               setDisplayTask={setDisplayTask}
+              displayTask={displayTask}
+              taskDetail={taskDetails}
             />
           )}
         </div>
@@ -106,7 +156,7 @@ function DefaultMessage() {
   );
 }
 
-function AddTaskCard({ taskBucket }) {
+function AddTaskCard({ taskBucket, setTaskDetails, setDisplayTask }) {
   let containsTask = false;
   const userTasks = useSelector(selectTaskList);
 
@@ -116,7 +166,14 @@ function AddTaskCard({ taskBucket }) {
         let taskData = Object.values(taskDetail)[0];
         if (taskData.progress === taskBucket) {
           containsTask = true;
-          return <TaskCard taskDetail={taskData} key={taskDetail} />;
+          return (
+            <TaskCard
+              taskDetail={taskData}
+              key={taskDetail}
+              setTaskDetails={setTaskDetails}
+              setDisplayTask={setDisplayTask}
+            />
+          );
         } else return null;
       })}
       {containsTask ? null : <DefaultMessage />}
