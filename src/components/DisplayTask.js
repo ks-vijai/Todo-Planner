@@ -12,12 +12,30 @@ import { Tooltip } from "antd";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
-import { addNewTask } from "../app/feature/tasks/taskSlice";
+import { addNewTask, selectTaskList } from "../app/feature/tasks/taskSlice";
+import { useSelector } from "react-redux";
 
-function DisplayTask({ selectedBucket }) {
+function DisplayTask({ selectedBucket, setDisplayTask }) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const userTasks = useSelector(selectTaskList);
   const dispatch = useDispatch();
+  const [taskLiked, setTaskLiked] = useState(false);
   const updateLikeOption = (event) => {
     event.preventDefault();
+    setTaskLiked(!taskLiked);
     event.target.classList.toggle("like-button-active");
   };
   const projectOptions = [
@@ -31,13 +49,13 @@ function DisplayTask({ selectedBucket }) {
   ];
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(null);
+  const [selectedProject, setSelectedProject] = useState("");
   const taskNameContainer = useRef(null);
-  const taskProjectContainer = useRef(null);
   const taskStartDate = useRef(null);
   const taskEndDate = useRef(null);
   const taskStatus = useRef(null);
   const taskDescription = useRef(null);
-  const taskLiked = useRef(null);
+  const displayTaskRef = useRef(null);
 
   const displayErrorMessage = (errorMessage) => {
     toast.error(errorMessage);
@@ -47,34 +65,34 @@ function DisplayTask({ selectedBucket }) {
     let newTaskName = taskNameContainer.current?.value;
     if (!newTaskName) {
       displayErrorMessage("Enter a valid Task Name");
-    } else if (!taskStartDate.current.props.selected) {
-      console.log(taskStartDate.current);
+    } else if (!startDate) {
       displayErrorMessage("Select a valid Start date");
-    } else if (!taskEndDate.current.props.selected) {
+    } else if (!endDate) {
       displayErrorMessage("Select a valid End date");
     } else {
       dispatch(
         addNewTask({
           [newTaskName]: {
-            id: 2,
+            id: userTasks.length + 1,
             username: "vijai@gmail.com",
             taskName: newTaskName,
-            startDate: "Wed 20",
-            endDate: "Wed 20",
-            project: taskProjectContainer.current.value,
+            startDate: months[startDate.getMonth()] + " " + startDate.getDate(),
+            endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
+            project: selectedProject,
             progress: taskStatus.current.props.value.value,
-            description: "",
-            liked: false,
+            description: taskDescription.current.value,
+            liked: taskLiked,
           },
         })
       );
       toast.success("Task Added Successfully");
+      setDisplayTask(false);
     }
   };
 
   return (
     <>
-      <div className="display-task">
+      <div className="display-task" ref={displayTaskRef}>
         <div className="display-bar">
           <Tooltip placement="bottom" color="#228b22" title="Mark as Completed">
             <div className="mark-complete">
@@ -87,7 +105,6 @@ function DisplayTask({ selectedBucket }) {
               <div>
                 <BiLike
                   className="like-button"
-                  ref={taskLiked}
                   onClick={(event) => updateLikeOption(event)}
                 />
               </div>
@@ -122,7 +139,7 @@ function DisplayTask({ selectedBucket }) {
               <Select
                 placeholder="Select Project"
                 className="dropdown-box"
-                ref={taskProjectContainer}
+                onChange={(e) => setSelectedProject(e.target.value)}
                 options={projectOptions}
               />
             </div>

@@ -82,7 +82,12 @@ function Taskspage() {
               </div>
             </div>
           )}
-          {displayTask && <DisplayTask selectedBucket={selectedBucket} />}
+          {displayTask && (
+            <DisplayTask
+              selectedBucket={selectedBucket}
+              setDisplayTask={setDisplayTask}
+            />
+          )}
         </div>
       </div>
     </motion.div>
