@@ -68,6 +68,7 @@ function Taskspage() {
               {
                 <AddTaskCard
                   taskBucket="Todo"
+                  setSelectedBucket={setSelectedBucket}
                   setTaskDetails={setTaskDetails}
                   setDisplayTask={setDisplayTask}
                 />
@@ -90,6 +91,7 @@ function Taskspage() {
               {
                 <AddTaskCard
                   taskBucket="InProgress"
+                  setSelectedBucket={setSelectedBucket}
                   setTaskDetails={setTaskDetails}
                   setDisplayTask={setDisplayTask}
                 />
@@ -112,6 +114,7 @@ function Taskspage() {
               {
                 <AddTaskCard
                   taskBucket="Completed"
+                  setSelectedBucket={setSelectedBucket}
                   setTaskDetails={setTaskDetails}
                   setDisplayTask={setDisplayTask}
                 />
@@ -156,7 +159,12 @@ function DefaultMessage() {
   );
 }
 
-function AddTaskCard({ taskBucket, setTaskDetails, setDisplayTask }) {
+function AddTaskCard({
+  taskBucket,
+  setTaskDetails,
+  setDisplayTask,
+  setSelectedBucket,
+}) {
   let containsTask = false;
   const userTasks = useSelector(selectTaskList);
 
@@ -170,6 +178,7 @@ function AddTaskCard({ taskBucket, setTaskDetails, setDisplayTask }) {
             <TaskCard
               taskDetail={taskData}
               key={taskDetail}
+              setSelectedBucket={setSelectedBucket}
               setTaskDetails={setTaskDetails}
               setDisplayTask={setDisplayTask}
             />

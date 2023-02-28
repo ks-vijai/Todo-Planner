@@ -5,16 +5,24 @@ import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { selectTaskList } from "../app/feature/tasks/taskSlice";
 
-function TaskCard({ taskDetail, setTaskDetails, setDisplayTask }) {
+function TaskCard({
+  taskDetail,
+  setTaskDetails,
+  setDisplayTask,
+  setSelectedBucket,
+}) {
   const userTasks = useSelector(selectTaskList);
   const displayData = (taskName) => {
     setDisplayTask((prevState) => {
-      return { ...prevState, display: false, type: "edit" };
+      return { ...prevState, display: false };
     });
 
     Object.values(userTasks)?.forEach((taskDetail) => {
       let taskData = Object.values(taskDetail)[0];
       if (taskData.taskName === taskName) {
+        setSelectedBucket((prevState) => {
+          return { ...prevState, status: taskData.progress };
+        });
         setTaskDetails((prevState) => {
           return {
             ...prevState,

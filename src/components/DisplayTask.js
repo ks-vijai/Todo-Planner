@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { GrCheckmark } from "react-icons/gr";
 import { BiLike, BiArrowToRight } from "react-icons/bi";
 import { AiTwotoneLock } from "react-icons/ai";
@@ -16,6 +16,7 @@ import {
   addNewTask,
   selectTaskList,
   updateTask,
+  deleteTask,
 } from "../app/feature/tasks/taskSlice";
 import { useSelector } from "react-redux";
 
@@ -58,12 +59,35 @@ function DisplayTask({
   ];
   const [startDate, setStartDate] = useState(taskDetail.startDate);
   const [endDate, setEndDate] = useState(taskDetail.endDate);
-  const [selectedProject, setSelectedProject] = useState("");
+  const [selectedProject, setSelectedProject] = useState(taskDetail.project);
+  const [taskBucket, setTaskBucket] = useState(selectedBucket.status);
   const taskNameRef = useRef(null);
   const taskStartDate = useRef(null);
   const taskEndDate = useRef(null);
-  const taskStatus = useRef(null);
   const taskDescription = useRef(null);
+
+  useEffect(() => {
+    setTaskBucket(() => {
+      return selectedBucket.status;
+    });
+
+    setStartDate(() => {
+      return taskDetail.startDate;
+    });
+
+    setEndDate(() => {
+      return taskDetail.endDate;
+    });
+
+    setSelectedProject(() => {
+      return taskDetail.project;
+    });
+  }, [
+    selectedBucket.status,
+    taskDetail.startDate,
+    taskDetail.endDate,
+    taskDetail.project,
+  ]);
 
   const displayErrorMessage = (errorMessage) => {
     toast.error(errorMessage);
@@ -75,7 +99,7 @@ function DisplayTask({
     });
   };
 
-  const saveTask = () => {
+  const saveTask = (taskStatus) => {
     let newTaskName = taskNameRef.current.innerHTML;
     if (!newTaskName) {
       displayErrorMessage("Enter a valid Task Name");
@@ -93,7 +117,7 @@ function DisplayTask({
         endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
         selectedEndDate: `${endDate}`,
         project: selectedProject,
-        progress: taskStatus.current.props.value.value,
+        progress: taskStatus,
         description: taskDescription.current.value,
         liked: taskLiked,
       };
@@ -118,6 +142,22 @@ function DisplayTask({
     }
   };
 
+  const deleteUserTask = () => {
+    dispatch(
+      deleteTask({
+        taskName: taskDetail.taskName,
+      })
+    );
+    closeTask();
+  };
+
+  const markAsComplete = () => {
+    if (taskDetail.taskName) {
+      saveTask("Completed");
+      closeTask();
+    }
+  };
+
   return (
     <>
       <div className="display-task">
@@ -129,6 +169,7 @@ function DisplayTask({
                   ? "mark-complete cursor-enable"
                   : "mark-complete"
               }
+              onClick={markAsComplete}
             >
               <GrCheckmark className="tick-symbol" />
               Mark Complete
@@ -184,7 +225,9 @@ function DisplayTask({
               <Select
                 placeholder="Select Project"
                 className="dropdown-box"
-                selected={taskDetail.project}
+                value={projectOptions.filter(function (option) {
+                  return option.value === selectedProject;
+                })}
                 onChange={(e) => setSelectedProject(e.value)}
                 options={projectOptions}
               />
@@ -221,8 +264,10 @@ function DisplayTask({
                 placeholder="Task Status"
                 className="dropdown-box"
                 options={taskOptions}
-                ref={taskStatus}
-                defaultValue={taskOptions[selectedBucket.id]}
+                onChange={(e) => setTaskBucket(e.value)}
+                value={taskOptions.filter(function (option) {
+                  return option.value === taskBucket;
+                })}
               />
             </div>
             <div className="edit-description">
@@ -238,13 +283,21 @@ function DisplayTask({
             </div>
             <div className="last-buttons">
               <Tooltip placement="bottom" color="#228b22" title="Save Task">
-                <div className="view-buttons save-button" onClick={saveTask}>
+                <div
+                  className="view-buttons save-button"
+                  onClick={() => saveTask(taskBucket)}
+                >
                   Save
                 </div>
               </Tooltip>
               <Tooltip placement="bottom" color="#e15643" title="Delete Task">
                 {displayTask.type !== "new" && (
-                  <div className="view-buttons">Delete Task</div>
+                  <div
+                    className="view-buttons"
+                    onClick={() => deleteUserTask()}
+                  >
+                    Delete Task
+                  </div>
                 )}
               </Tooltip>
             </div>

@@ -20,10 +20,16 @@ const taskSlice = createSlice({
       delete payload.oldTaskName;
       state.tasksList.push(payload);
     },
+    deleteTask: (state, { payload }) => {
+      state.tasksList = state.tasksList.filter((task) => {
+        let taskValues = Object.values(task)[0];
+        return taskValues.taskName !== payload.taskName;
+      });
+    },
   },
 });
 
 export default taskSlice.reducer;
-export const { addNewTask, updateTask } = taskSlice.actions;
+export const { addNewTask, updateTask, deleteTask } = taskSlice.actions;
 
 export const selectTaskList = (state) => state.tasks.tasksList;
