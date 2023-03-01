@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { GrCheckmark } from "react-icons/gr";
 import { BiLike, BiArrowToRight } from "react-icons/bi";
 import { AiTwotoneLock } from "react-icons/ai";
@@ -82,11 +82,30 @@ function DisplayTask({
     setSelectedProject(() => {
       return taskDetail.project;
     });
+    console.log(displayTask.type);
+    if (displayTask.type === "new") {
+      setTaskDescription(() => {
+        return "";
+      });
+      setTaskName(() => {
+        return "";
+      });
+    } else {
+      setTaskDescription(() => {
+        return taskDetail.taskName;
+      });
+      setTaskName(() => {
+        return taskDetail.description;
+      });
+    }
   }, [
     selectedBucket.status,
     taskDetail.startDate,
     taskDetail.endDate,
     taskDetail.project,
+    displayTask.type,
+    taskDetail.taskName,
+    taskDetail.description,
   ]);
 
   const displayErrorMessage = (errorMessage) => {
