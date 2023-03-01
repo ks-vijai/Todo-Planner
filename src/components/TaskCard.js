@@ -5,12 +5,14 @@ import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { selectTaskList, updateTask } from "../app/feature/tasks/taskSlice";
+import { Draggable } from "react-beautiful-dnd";
 
 function TaskCard({
   taskDetail,
   setTaskDetails,
   setDisplayTask,
   setSelectedBucket,
+  index,
 }) {
   const months = [
     "Jan",
@@ -91,32 +93,43 @@ function TaskCard({
   };
 
   return (
-    <motion.div
-      className="task-card"
-      whileHover={{
-        scale: 1.05,
-        transition: {
-          duration: 0.5,
-        },
-      }}
-      onClick={() => {
-        displayData(taskDetail.taskName);
-      }}
-    >
-      <div
-        className="completion-icon"
-        onClick={(e) => markAsComplete(e, taskDetail.taskName)}
-      >
-        <Tooltip placement="bottom" color="#228b22" title="Mark as Completed">
-          <FaRegCheckCircle className="icon" />
-        </Tooltip>
-        <span className="tasks-name"> {taskDetail.taskName}</span>
-      </div>
-      <div className="deadlines">
-        <div className="dates start-date">{taskDetail.startDate}</div>
-        <div className="dates end-date">{taskDetail.endDate}</div>
-      </div>
-    </motion.div>
+    <Draggable draggableId={taskDetail.id.toString()} index={index}>
+      {(provided, snapshot) => (
+        <motion.div
+          className={`task-card ${snapshot.isDraggingOver ? "dragactive" : ""}`}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          ref={provided.innerRef}
+          whileHover={{
+            scale: 1.05,
+            transition: {
+              duration: 0.5,
+            },
+          }}
+          onClick={() => {
+            displayData(taskDetail.taskName);
+          }}
+        >
+          <div className="completion-icon">
+            <Tooltip
+              placement="bottom"
+              color="#228b22"
+              title="Mark as Completed"
+            >
+              <FaRegCheckCircle
+                className="icon"
+                onClick={(e) => markAsComplete(e, taskDetail.taskName)}
+              />
+            </Tooltip>
+            <span className="tasks-name"> {taskDetail.taskName}</span>
+          </div>
+          <div className="deadlines">
+            <div className="dates start-date">{taskDetail.startDate}</div>
+            <div className="dates end-date">{taskDetail.endDate}</div>
+          </div>
+        </motion.div>
+      )}
+    </Draggable>
   );
 }
 
