@@ -23,6 +23,7 @@ function TaskCard({
         setSelectedBucket((prevState) => {
           return { ...prevState, status: taskData.progress };
         });
+        console.log(taskData.description);
         setTaskDetails((prevState) => {
           return {
             ...prevState,
@@ -44,7 +45,6 @@ function TaskCard({
   };
 
   const markAsComplete = (e) => {
-    console.log(e);
   };
 
   return (

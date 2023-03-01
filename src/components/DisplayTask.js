@@ -61,10 +61,10 @@ function DisplayTask({
   const [endDate, setEndDate] = useState(taskDetail.endDate);
   const [selectedProject, setSelectedProject] = useState(taskDetail.project);
   const [taskBucket, setTaskBucket] = useState(selectedBucket.status);
-  const taskNameRef = useRef(null);
-  const taskStartDate = useRef(null);
-  const taskEndDate = useRef(null);
-  const taskDescription = useRef(null);
+  const [taskName, setTaskName] = useState(taskDetail.taskName);
+  const [taskDescription, setTaskDescription] = useState(
+    taskDetail.description
+  );
 
   useEffect(() => {
     setTaskBucket(() => {
@@ -100,8 +100,7 @@ function DisplayTask({
   };
 
   const saveTask = (taskStatus) => {
-    let newTaskName = taskNameRef.current.innerHTML;
-    if (!newTaskName) {
+    if (!taskName) {
       displayErrorMessage("Enter a valid Task Name");
     } else if (!startDate) {
       displayErrorMessage("Select a valid Start date");
@@ -111,27 +110,27 @@ function DisplayTask({
       let userTaskDetails = {
         id: userTasks.length + 1,
         username: "vijai@gmail.com",
-        taskName: newTaskName,
+        taskName: taskName,
         startDate: months[startDate.getMonth()] + " " + startDate.getDate(),
         selectedStartDate: `${startDate}`,
         endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
         selectedEndDate: `${endDate}`,
         project: selectedProject,
         progress: taskStatus,
-        description: taskDescription.current.value,
+        description: taskDescription,
         liked: taskLiked,
       };
 
       if (displayTask.type === "new") {
         dispatch(
           addNewTask({
-            [newTaskName]: userTaskDetails,
+            [taskName]: userTaskDetails,
           })
         );
       } else if (displayTask.type === "edit") {
         dispatch(
           updateTask({
-            [newTaskName]: userTaskDetails,
+            [taskName]: userTaskDetails,
             oldTaskName: taskDetail.taskName,
           })
         );
@@ -208,16 +207,13 @@ function DisplayTask({
               <RxRocket className="rocket-icon" />
               <span>
                 Task:
-                <div
+                <input
                   type="text"
-                  ref={taskNameRef}
-                  contentEditable="true"
                   spellCheck={false}
-                  suppressContentEditableWarning={true}
+                  value={taskName}
+                  onChange={(e) => setTaskName(e.target.value)}
                   className="task-name-editable new-task-name"
-                >
-                  {taskDetail.taskName}
-                </div>
+                />
               </span>
             </div>
             <div className="select-project">
@@ -239,7 +235,6 @@ function DisplayTask({
                   selected={startDate}
                   onChange={(date) => setStartDate(date)}
                   minDate={subDays(new Date(), 0)}
-                  ref={taskStartDate}
                   placeholderText="Select Start Date"
                   dateFormat="MMMM d"
                   className="date-picker"
@@ -251,7 +246,6 @@ function DisplayTask({
                   selected={endDate}
                   onChange={(date) => setEndDate(date)}
                   maxDate={addDays(new Date(), 5)}
-                  ref={taskEndDate}
                   placeholderText="Select End Date"
                   dateFormat="MMMM d"
                   className="end-date-picker"
@@ -272,14 +266,11 @@ function DisplayTask({
             </div>
             <div className="edit-description">
               Description :
-              <div
+              <input
                 className="description-box"
-                contentEditable="true"
-                ref={taskDescription}
-                suppressContentEditableWarning={true}
-              >
-                {taskDetail.description}
-              </div>
+                value={taskDescription}
+                onChange={(e) => setTaskDescription(e.target.value)}
+              />
             </div>
             <div className="last-buttons">
               <Tooltip placement="bottom" color="#228b22" title="Save Task">
