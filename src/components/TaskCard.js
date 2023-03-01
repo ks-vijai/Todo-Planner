@@ -3,7 +3,8 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { Tooltip } from "antd";
 import { useSelector } from "react-redux";
-import { selectTaskList } from "../app/feature/tasks/taskSlice";
+import { useDispatch } from "react-redux";
+import { selectTaskList, updateTask } from "../app/feature/tasks/taskSlice";
 
 function TaskCard({
   taskDetail,
@@ -11,7 +12,22 @@ function TaskCard({
   setDisplayTask,
   setSelectedBucket,
 }) {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   const userTasks = useSelector(selectTaskList);
+  const dispatch = useDispatch();
   const displayData = (taskName) => {
     setDisplayTask((prevState) => {
       return { ...prevState, display: false };
@@ -23,7 +39,7 @@ function TaskCard({
         setSelectedBucket((prevState) => {
           return { ...prevState, status: taskData.progress };
         });
-        console.log(taskData.description);
+
         setTaskDetails((prevState) => {
           return {
             ...prevState,
@@ -44,7 +60,34 @@ function TaskCard({
     });
   };
 
-  const markAsComplete = (e) => {
+  const markAsComplete = (event, selectedTaskName) => {
+    event.stopPropagation();
+    Object.values(userTasks)?.forEach((taskDetail) => {
+      let taskData = Object.values(taskDetail)[0];
+      if (taskData.taskName === selectedTaskName) {
+        let startDate = new Date(taskData.selectedStartDate);
+        let endDate = new Date(taskData.selectedEndDate);
+        let selectedTaskDetails = {
+          id: userTasks.length + 1,
+          username: "vijai@gmail.com",
+          taskName: taskData.taskName,
+          project: taskData.project,
+          progress: "Completed",
+          startDate: months[startDate.getMonth()] + " " + startDate.getDate(),
+          selectedStartDate: `${startDate}`,
+          endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
+          selectedEndDate: `${endDate}`,
+          description: taskData.description,
+          liked: taskData.liked,
+        };
+        dispatch(
+          updateTask({
+            [selectedTaskName]: selectedTaskDetails,
+            oldTaskName: selectedTaskName,
+          })
+        );
+      }
+    });
   };
 
   return (
@@ -60,7 +103,10 @@ function TaskCard({
         displayData(taskDetail.taskName);
       }}
     >
-      <div className="completion-icon" onClick={markAsComplete}>
+      <div
+        className="completion-icon"
+        onClick={(e) => markAsComplete(e, taskDetail.taskName)}
+      >
         <Tooltip placement="bottom" color="#228b22" title="Mark as Completed">
           <FaRegCheckCircle className="icon" />
         </Tooltip>

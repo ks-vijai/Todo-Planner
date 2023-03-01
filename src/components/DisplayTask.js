@@ -82,7 +82,7 @@ function DisplayTask({
     setSelectedProject(() => {
       return taskDetail.project;
     });
-    console.log(displayTask.type);
+
     if (displayTask.type === "new") {
       setTaskDescription(() => {
         return "";
@@ -92,10 +92,10 @@ function DisplayTask({
       });
     } else {
       setTaskDescription(() => {
-        return taskDetail.taskName;
+        return taskDetail.description;
       });
       setTaskName(() => {
-        return taskDetail.description;
+        return taskDetail.taskName;
       });
     }
   }, [
