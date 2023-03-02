@@ -6,10 +6,26 @@ import { useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import { Tooltip } from "antd";
 import DisplayTask from "../components/DisplayTask";
-import { selectTaskList } from "../app/feature/tasks/taskSlice";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { useDispatch } from "react-redux";
+import { selectTaskList, updateTask } from "../app/feature/tasks/taskSlice";
 
 function Taskspage() {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const userTasks = useSelector(selectTaskList);
+  const dispatch = useDispatch();
   const [displayTask, setDisplayTask] = useState({
     display: false,
     type: "new",
@@ -44,148 +60,157 @@ function Taskspage() {
     });
   };
 
-  const onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
+  const draggingOver = (e) => {
+    e.preventDefault();
+  };
 
-    if (!destination) {
-      return;
-    }
-
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
+  const dragDropped = (e, newTaskStatus) => {
+    let transferredTask = e.dataTransfer.getData("taskName");
+    Object.values(userTasks)?.forEach((taskDetail) => {
+      let taskData = Object.values(taskDetail)[0];
+      if (taskData.taskName === transferredTask) {
+        let startDate = new Date(taskData.selectedStartDate);
+        let endDate = new Date(taskData.selectedEndDate);
+        let selectedTaskDetails = {
+          id: userTasks.length + 1,
+          username: "vijai@gmail.com",
+          taskName: taskData.taskName,
+          project: taskData.project,
+          progress: newTaskStatus,
+          startDate: months[startDate.getMonth()] + " " + startDate.getDate(),
+          selectedStartDate: `${startDate}`,
+          endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
+          selectedEndDate: `${endDate}`,
+          description: taskData.description,
+          liked: taskData.liked,
+        };
+        dispatch(
+          updateTask({
+            [transferredTask]: selectedTaskDetails,
+            oldTaskName: transferredTask,
+          })
+        );
+      }
+    });
   };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-        exit={{ opacity: 0 }}
-      >
-        <div className="task-container">
-          <div className="task-page">
-            <div className="tasks-section">
-              <div className="section-heading">
-                <div>📬 New tasks</div>
-                <Tooltip
-                  placement="bottom"
-                  color="#f9a320"
-                  title="Add New Task"
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <div className="task-container">
+        <div className="task-page">
+          <div className="tasks-section">
+            <div className="section-heading">
+              <div>📬 New tasks</div>
+              <Tooltip placement="bottom" color="#f9a320" title="Add New Task">
+                <div
+                  className="add-button"
+                  onClick={() => AddNewTask(0, "Todo")}
                 >
-                  <div
-                    className="add-button"
-                    onClick={() => AddNewTask(0, "Todo")}
-                  >
-                    +
-                  </div>
-                </Tooltip>
-              </div>
-              <Droppable droppableId="Todo">
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
-                    {
-                      <AddTaskCard
-                        taskBucket="Todo"
-                        setSelectedBucket={setSelectedBucket}
-                        setTaskDetails={setTaskDetails}
-                        setDisplayTask={setDisplayTask}
-                      />
-                    }
-                  </div>
-                )}
-              </Droppable>
-            </div>
-            <div className="tasks-section">
-              <div className="section-heading">
-                <div>✍️ Current</div>
-                <Tooltip
-                  placement="bottom"
-                  color="#f9a320"
-                  title="Add New Task"
-                >
-                  <div
-                    className="add-button"
-                    onClick={() => AddNewTask(1, "InProgress")}
-                  >
-                    +
-                  </div>
-                </Tooltip>
-              </div>
-              <Droppable droppableId="InProgress">
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
-                    {
-                      <AddTaskCard
-                        taskBucket="InProgress"
-                        setSelectedBucket={setSelectedBucket}
-                        setTaskDetails={setTaskDetails}
-                        setDisplayTask={setDisplayTask}
-                      />
-                    }
-                  </div>
-                )}
-              </Droppable>
-            </div>
-            <div className="tasks-section">
-              <div className="section-heading">
-                <div>✨ Done</div>
-                <Tooltip
-                  placement="bottom"
-                  color="#f9a320"
-                  title="Add New Task"
-                >
-                  <div
-                    className="add-button"
-                    onClick={() => AddNewTask(2, "Completed")}
-                  >
-                    +
-                  </div>
-                </Tooltip>
-              </div>
-              <Droppable droppableId="Completed">
-                {(provided) => (
-                  <div ref={provided.innerRef} {...provided.droppableProps}>
-                    {
-                      <AddTaskCard
-                        taskBucket="Completed"
-                        setSelectedBucket={setSelectedBucket}
-                        setTaskDetails={setTaskDetails}
-                        setDisplayTask={setDisplayTask}
-                      />
-                    }
-                  </div>
-                )}
-              </Droppable>
-            </div>
-            {!displayTask.display && (
-              <div className="display-section">
-                <div>Select a task to display.</div>
-                <div>
-                  <img
-                    src={Cycle}
-                    alt="Loading Cycle"
-                    className="cycle-animation"
-                  />
+                  +
                 </div>
-              </div>
-            )}
-            {displayTask.display && (
-              <DisplayTask
-                selectedBucket={selectedBucket}
-                setDisplayTask={setDisplayTask}
-                displayTask={displayTask}
-                taskDetail={taskDetails}
-              />
-            )}
+              </Tooltip>
+            </div>
+            <div
+              droppable="true"
+              onDragOver={(e) => draggingOver(e)}
+              onDrop={(e) => dragDropped(e, "Todo")}
+            >
+              {
+                <AddTaskCard
+                  taskBucket="Todo"
+                  setSelectedBucket={setSelectedBucket}
+                  setTaskDetails={setTaskDetails}
+                  setDisplayTask={setDisplayTask}
+                  months={months}
+                />
+              }
+            </div>
           </div>
+          <div className="tasks-section">
+            <div className="section-heading">
+              <div>✍️ Current</div>
+              <Tooltip placement="bottom" color="#f9a320" title="Add New Task">
+                <div
+                  className="add-button"
+                  onClick={() => AddNewTask(1, "InProgress")}
+                >
+                  +
+                </div>
+              </Tooltip>
+            </div>
+            <div
+              droppable="true"
+              onDragOver={(e) => draggingOver(e)}
+              onDrop={(e) => dragDropped(e, "InProgress")}
+            >
+              {
+                <AddTaskCard
+                  taskBucket="InProgress"
+                  setSelectedBucket={setSelectedBucket}
+                  setTaskDetails={setTaskDetails}
+                  setDisplayTask={setDisplayTask}
+                  months={months}
+                />
+              }
+            </div>
+          </div>
+          <div className="tasks-section">
+            <div className="section-heading">
+              <div>✨ Done</div>
+              <Tooltip placement="bottom" color="#f9a320" title="Add New Task">
+                <div
+                  className="add-button"
+                  onClick={() => AddNewTask(2, "Completed")}
+                >
+                  +
+                </div>
+              </Tooltip>
+            </div>
+            <div
+              droppable="true"
+              onDragOver={(e) => draggingOver(e)}
+              onDrop={(e) => dragDropped(e, "Completed")}
+            >
+              {
+                <AddTaskCard
+                  taskBucket="Completed"
+                  setSelectedBucket={setSelectedBucket}
+                  setTaskDetails={setTaskDetails}
+                  setDisplayTask={setDisplayTask}
+                  months={months}
+                />
+              }
+            </div>
+          </div>
+          {!displayTask.display && (
+            <div className="display-section">
+              <div>Select a task to display.</div>
+              <div>
+                <img
+                  src={Cycle}
+                  alt="Loading Cycle"
+                  className="cycle-animation"
+                />
+              </div>
+            </div>
+          )}
+          {displayTask.display && (
+            <DisplayTask
+              selectedBucket={selectedBucket}
+              setDisplayTask={setDisplayTask}
+              displayTask={displayTask}
+              taskDetail={taskDetails}
+              months={months}
+            />
+          )}
         </div>
-      </motion.div>
-    </DragDropContext>
+      </div>
+    </motion.div>
   );
 }
 
@@ -204,6 +229,7 @@ function DefaultMessage() {
 function AddTaskCard({
   taskBucket,
   setTaskDetails,
+  months,
   setDisplayTask,
   setSelectedBucket,
 }) {
@@ -224,6 +250,7 @@ function AddTaskCard({
               setSelectedBucket={setSelectedBucket}
               setTaskDetails={setTaskDetails}
               setDisplayTask={setDisplayTask}
+              months={months}
             />
           );
         } else return null;
