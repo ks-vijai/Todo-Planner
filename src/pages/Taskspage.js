@@ -6,9 +6,26 @@ import { useSelector } from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import { Tooltip } from "antd";
 import DisplayTask from "../components/DisplayTask";
-import { selectTaskList } from "../app/feature/tasks/taskSlice";
+import { useDispatch } from "react-redux";
+import { selectTaskList, updateTask } from "../app/feature/tasks/taskSlice";
 
 function Taskspage() {
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const userTasks = useSelector(selectTaskList);
+  const dispatch = useDispatch();
   const [displayTask, setDisplayTask] = useState({
     display: false,
     type: "new",
@@ -43,6 +60,40 @@ function Taskspage() {
     });
   };
 
+  const draggingOver = (e) => {
+    e.preventDefault();
+  };
+
+  const dragDropped = (e, newTaskStatus) => {
+    let transferredTask = e.dataTransfer.getData("taskName");
+    Object.values(userTasks)?.forEach((taskDetail) => {
+      let taskData = Object.values(taskDetail)[0];
+      if (taskData.taskName === transferredTask) {
+        let startDate = new Date(taskData.selectedStartDate);
+        let endDate = new Date(taskData.selectedEndDate);
+        let selectedTaskDetails = {
+          id: userTasks.length + 1,
+          username: "vijai@gmail.com",
+          taskName: taskData.taskName,
+          project: taskData.project,
+          progress: newTaskStatus,
+          startDate: months[startDate.getMonth()] + " " + startDate.getDate(),
+          selectedStartDate: `${startDate}`,
+          endDate: months[endDate.getMonth()] + " " + endDate.getDate(),
+          selectedEndDate: `${endDate}`,
+          description: taskData.description,
+          liked: taskData.liked,
+        };
+        dispatch(
+          updateTask({
+            [transferredTask]: selectedTaskDetails,
+            oldTaskName: transferredTask,
+          })
+        );
+      }
+    });
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -64,13 +115,18 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>
+            <div
+              droppable
+              onDragOver={(e) => draggingOver(e)}
+              onDrop={(e) => dragDropped(e, "Todo")}
+            >
               {
                 <AddTaskCard
                   taskBucket="Todo"
                   setSelectedBucket={setSelectedBucket}
                   setTaskDetails={setTaskDetails}
                   setDisplayTask={setDisplayTask}
+                  months={months}
                 />
               }
             </div>
@@ -87,13 +143,18 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>
+            <div
+              droppable
+              onDragOver={(e) => draggingOver(e)}
+              onDrop={(e) => dragDropped(e, "InProgress")}
+            >
               {
                 <AddTaskCard
                   taskBucket="InProgress"
                   setSelectedBucket={setSelectedBucket}
                   setTaskDetails={setTaskDetails}
                   setDisplayTask={setDisplayTask}
+                  months={months}
                 />
               }
             </div>
@@ -110,13 +171,18 @@ function Taskspage() {
                 </div>
               </Tooltip>
             </div>
-            <div>
+            <div
+              droppable
+              onDragOver={(e) => draggingOver(e)}
+              onDrop={(e) => dragDropped(e, "Completed")}
+            >
               {
                 <AddTaskCard
                   taskBucket="Completed"
                   setSelectedBucket={setSelectedBucket}
                   setTaskDetails={setTaskDetails}
                   setDisplayTask={setDisplayTask}
+                  months={months}
                 />
               }
             </div>
@@ -139,6 +205,7 @@ function Taskspage() {
               setDisplayTask={setDisplayTask}
               displayTask={displayTask}
               taskDetail={taskDetails}
+              months={months}
             />
           )}
         </div>
@@ -162,6 +229,7 @@ function DefaultMessage() {
 function AddTaskCard({
   taskBucket,
   setTaskDetails,
+  months,
   setDisplayTask,
   setSelectedBucket,
 }) {
@@ -181,6 +249,7 @@ function AddTaskCard({
               setSelectedBucket={setSelectedBucket}
               setTaskDetails={setTaskDetails}
               setDisplayTask={setDisplayTask}
+              months={months}
             />
           );
         } else return null;

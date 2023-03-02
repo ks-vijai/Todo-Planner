@@ -25,21 +25,8 @@ function DisplayTask({
   displayTask,
   setDisplayTask,
   taskDetail,
+  months,
 }) {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
   const userTasks = useSelector(selectTaskList);
   const dispatch = useDispatch();
   const [taskLiked, setTaskLiked] = useState(false);

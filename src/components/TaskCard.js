@@ -11,21 +11,8 @@ function TaskCard({
   setTaskDetails,
   setDisplayTask,
   setSelectedBucket,
+  months,
 }) {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
   const userTasks = useSelector(selectTaskList);
   const dispatch = useDispatch();
   const displayData = (taskName) => {
@@ -90,9 +77,15 @@ function TaskCard({
     });
   };
 
+  const onDragStart = (e, taskName) => {
+    e.dataTransfer.setData("taskName", taskName);
+  };
+
   return (
     <motion.div
       className="task-card"
+      draggable
+      onDragStart={(e) => onDragStart(e, taskDetail.taskName)}
       whileHover={{
         scale: 1.05,
         transition: {
@@ -103,12 +96,12 @@ function TaskCard({
         displayData(taskDetail.taskName);
       }}
     >
-      <div
-        className="completion-icon"
-        onClick={(e) => markAsComplete(e, taskDetail.taskName)}
-      >
+      <div className="completion-icon">
         <Tooltip placement="bottom" color="#228b22" title="Mark as Completed">
-          <FaRegCheckCircle className="icon" />
+          <FaRegCheckCircle
+            className="icon"
+            onClick={(e) => markAsComplete(e, taskDetail.taskName)}
+          />
         </Tooltip>
         <span className="tasks-name"> {taskDetail.taskName}</span>
       </div>
